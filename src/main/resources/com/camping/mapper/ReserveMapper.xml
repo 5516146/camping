@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.camping.mapper.ReserveMapper">
+
+<!--    <insert id="insertSelectKey">-->
+<!--        &lt;!&ndash; 시퀀스를 사용한 키를 먼저 생성하여 확인 &ndash;&gt;-->
+<!--        &lt;!&ndash; 생성한 키를 reserve_no 이름으로 생성 &ndash;&gt;-->
+<!--        <selectKey keyProperty="reserve_no" order="BEFORE" resultType="int">-->
+<!--            select seq_reserve_no.nextval from dual-->
+<!--        </selectKey>-->
+
+<!--        &lt;!&ndash; 미리 생성한 키를 사용한 insert 구문 &ndash;&gt;-->
+<!--        insert into RESERVE (reserve_no, reserve_people, camp_no, mem_id)-->
+<!--        values (#{reserve_no}, #{reserve_people}, #{camp_no}, #{mem_id})-->
+<!--    </insert>-->
+
+    <insert id="insertSelectKey" parameterType="com.camping.domain.ReserveVO">
+        <selectKey keyProperty="reserve_no" order="BEFORE" resultType="Long">
+            select seq_reserve_no.nextval from dual
+        </selectKey>
+
+        insert into RESERVE (reserve_no, reserve_people, reserve_price, camp_no, mem_id, reserve_startdate, reserve_enddate)
+        values (#{reserve_no}, #{reserve_people}, #{reserve_price}, #{camp_no}, #{mem_id}, #{reserve_startDate}, #{reserve_endDate})
+    </insert>
+
+    <!-- 회원 ID를 통해 예약 내용 조회 -->
+    <select id="readMemId" resultType="com.camping.domain.ReserveVO">
+        select reserve_no, RESERVE_STARTDATE, RESERVE_ENDDATE, RESERVE_PRICE, CAMP_NO from CAMPING.RESERVE where mem_id = #{mem_id}
+    </select>
+
+    <!-- 예약 번호를 통해 예약 내용 조회 -->
+    <select id="readReserveNo" resultType="com.camping.domain.ReserveVO">
+        select reserve_no, reserve_startdate, reserve_people, reserve_price, camp_no, mem_id, reserve_enddate from CAMPING.RESERVE where reserve_no = #{reserve_no}
+    </select>
+
+    <!-- ReserveVO 객체를 받아 기존의 내용 수정 -->
+    <update id="update">
+        update CAMPING.RESERVE set reserve_people=#{reserve_people} where reserve_no = #{reserve_no}
+    </update>
+
+    <!-- 예약 정보를 삭제 -->
+    <!-- 나중에 외래키 처리 어떻게 할지 정해야함 -->
+    <delete id="delete">
+        delete from CAMPING.RESERVE where RESERVE_NO = #{reserve_no}
+    </delete>
+</mapper>
