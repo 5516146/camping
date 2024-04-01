@@ -98,7 +98,7 @@
         <form action="/reserve/getMem" method="get">
             <h3>예약이 정상적으로 완료되었습니다</h3>
             <p>예약 번호 : ${flashScope.reserve_no}</p>
-            <input type="hidden" name="mem_id" value="kkw">
+            <input type="hidden" name="mem_id" value="jjj"> <!-- 리다이렉트 오류로 임시 처리 -->
             <button type="submit">확인</button>
         </form>
     </section>

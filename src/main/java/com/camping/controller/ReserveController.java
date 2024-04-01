@@ -34,10 +34,18 @@ public class ReserveController {
 
     // 예약 실행
     @PostMapping("/register")
-    public void register(ReserveVO reserveVO, RedirectAttributes rttr, Model model){
+    public void register(ReserveVO reserveVO, RedirectAttributes rttr){
         reService.register(reserveVO);
 //        return "redirect:/reserve/register";
     }
+
+//    // 예약 실행
+//    @PostMapping("/register")
+//    public void register(ReserveVO reserveVO, RedirectAttributes rttr){
+//        reService.register(reserveVO);
+//
+//        return "/reserve/getMem";
+//    }
 
     // 회원의 모든 예약정보
     @GetMapping("/getMem")
@@ -55,10 +63,10 @@ public class ReserveController {
     @PostMapping("/modify")
     public String modify(ReserveVO reserveVO, RedirectAttributes rttr){
         if (reService.modify(reserveVO)){
-            rttr.addFlashAttribute("result", "success");
+            rttr.addFlashAttribute("reserve_no", reserveVO.getMem_id());
         }
 
-        return "redirect:/register/getMem";
+        return "redirect:/register/getRes?reserve_no=" + reserveVO.getReserve_no();
     }
 
     // 예약 취소
@@ -68,6 +76,6 @@ public class ReserveController {
             rttr.addFlashAttribute("result", "success");
         }
 
-        return "redirect:/register/list";
+        return "redirect:/register/getMem";
     }
 }

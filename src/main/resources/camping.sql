@@ -190,6 +190,7 @@ ALTER TABLE "BOARD_INQUIRY" ADD CONSTRAINT "FK_MEMBER_TO_BOARD_INQUIRY_1" FOREIG
         );
 
 insert into MEMBER(MEM_ID, MEM_PW, MEM_NAME, MEM_EMAIL, MEM_TEL) values ("kkw", "1234", "김기원", "kkw@naver.com", "010-1234-1234");
+insert into MEMBER(MEM_ID, MEM_PW, MEM_NAME, MEM_EMAIL, MEM_TEL) values ("jjj", "1234", "가나다", "kkw@naver.com", "010-1234-1234");
 
 ALTER TABLE reserve ADD RESERVE_ENDDATE DATE DEFAULT SYSDATE NOT NULL;
 
@@ -197,4 +198,6 @@ alter table RESERVE rename column RESERVE_DATE to RESERVE_STARTDATE;
 select * from RESERVE;
 
 select * from MEMBER;
+
+
 

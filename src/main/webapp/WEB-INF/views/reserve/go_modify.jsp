@@ -121,10 +121,22 @@
                     <p> 가격 : <input type="number" value="${reserve.reserve_price}" readonly/> </p>
                 </li>
             </ol>
-            <input type="hidden" name="mem_id" value="kkw">
-            <button type="submit">확인</button>
+            <input type="hidden" name="mem_id" value="kkw"> <!-- 리다이렉트 오류로 임시 지정 -->
+            <button type="submit" onclick="showAlertAndRedirect()">확인</button>
         </form>
     </section>
 </div>
 
+<script>
+    function showAlertAndRedirect() {
+        // confirm 창 띄우기
+        var confirmation = confirm("수정하시겠습니까?");
+
+        // 확인 버튼을 클릭한 경우에만 페이지 이동
+        if (confirmation) {
+            // 다른 페이지로 이동하기
+            window.location.href = "/reserve/modify";
+        }
+    }
+</script>
 <%@include file="../includes/footer.jsp" %>

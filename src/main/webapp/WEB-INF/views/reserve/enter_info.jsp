@@ -412,7 +412,7 @@
                                 </li>
                             </ol>
                             <div align="center">
-                                <input type="hidden" id="inputValue_mem_id" name="mem_id" value="kkw">
+                                <input type="hidden" id="inputValue_mem_id" name="mem_id" value="jjj"> <!-- 리다이렉션 오류로 임시 처리 -->
                                 <input type="hidden" id="inputValue_camp_no" name="camp_no" value="${site}">
                                 <button type="reset">취소</button>
                                 <button type="submit" id="openModalBtn" onclick="validateInput()">결제</button>
@@ -541,6 +541,12 @@
 
 
         modal.style.display = "block"; // 모달 보이기
+    }
+
+    // alert 띄우기
+    function showAlertAndRedirect() {
+        // alert 창 띄우기
+        alert("예약이 완료되었습니다.");
     }
 </script>
 <!-- End #main -->

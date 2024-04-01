@@ -28,7 +28,7 @@
     a {
         color: inherit; /* 링크의 색을 부모 요소의 색으로 상속 */
         text-decoration: none; /* 링크의 밑줄 제거 */
-
+    }
 </style>
 <!-- <img src="/resources/assets/img/main.jpg" class="img-fluid" alt="..."> -->
 <div style="padding-top: 70px;">

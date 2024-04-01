@@ -31,15 +31,16 @@ public class ReserveControllerTest {
 
     @Test
     public void testRegister() throws Exception{
-        String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/reserve/register")
-                .param("reserve_people", "2")
-                        .param("reserve_price", "20000")
-                        .param("camp_no", "A-1")
-                        .param("mem_id", "kkw")
-                        .param("reserve_startDate", "2024-03-30")
-                        .param("reserve_endDate", "2024-03-31"))
-                .andReturn().getModelAndView().getViewName();
-
+        for (int i = 0; i < 10; i ++) {
+            String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/reserve/register")
+                            .param("reserve_people", "2")
+                            .param("reserve_price", "20000")
+                            .param("camp_no", "A-1")
+                            .param("mem_id", "jjj")
+                            .param("reserve_startDate", "2024-03-30")
+                            .param("reserve_endDate", "2024-03-31"))
+                    .andReturn().getModelAndView().getViewName();
+        }
     }
 
 }
