@@ -18,15 +18,11 @@ public class ReserveServiceImpl implements ReserveService {
 
     // 새로운 예약
     @Override
-    public void register(ReserveVO reserveVO) {
-        reserveVO.setReserve_people(2L);
-        reserveVO.setReserve_price(20000l);
-        reserveVO.setCamp_no("A-1");
-        reserveVO.setMem_id("kkw");
-        reserveVO.setReserve_startDate("2024-03-30");
-        reserveVO.setReserve_endDate("2024-03-31");
+    public ReserveVO register(ReserveVO reserveVO) {
 
         reMapper.insertSelectKey(reserveVO);
+
+        return reserveVO;
     }
 
     // 예약 목록
@@ -50,5 +46,15 @@ public class ReserveServiceImpl implements ReserveService {
     @Override
     public boolean remove(Long reserve_no) {
         return reMapper.delete(reserve_no) == 1;
+    }
+
+    @Override
+    public List<String> find_sDate(String camp_no) {
+        return reMapper.selectStartDate(camp_no);
+    }
+
+    @Override
+    public List<String> find_eDate(String camp_no) {
+        return reMapper.selectEndDate(camp_no);
     }
 }

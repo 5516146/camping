@@ -92,6 +92,7 @@
             <button onclick="changePage('page1')">캠핑동</button>
             <button onclick="changePage('page2')">글램핑동</button>
             <button onclick="changePage('page3')">카라반동</button>
+            <button onclick="changePage('pageAll')">전체 보기</button>
         </div>
         <br/><hr/>
     </div>
@@ -646,6 +647,10 @@
         } else if (page === 'page3') {
             page1Content.style.display = "none";
             page2Content.style.display = "none";
+            page3Content.style.display = "block";
+        } else if (page === 'pageAll') {
+            page1Content.style.display = "block";
+            page2Content.style.display = "block";
             page3Content.style.display = "block";
         }
     }

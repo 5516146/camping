@@ -22,57 +22,19 @@ public class HomeController {
 		return "main";
 	}
 	
-	@GetMapping("/info")
-	public void info() {
-		
-	}
 	
-	@GetMapping("/info1")
-	public void info1() {
+	@GetMapping("/question")
+	public void question() {
 		
 	}
 
-	@GetMapping("/info2")
-	public void info2() {
+	@GetMapping("/video")
+	public void video() {
 		
 	}
 	
-	@GetMapping("/info3")
-	public void info3() {
-		
-	}
-	@GetMapping("/info4")
-	public void info4() {
-		
-	}
-	
-	@GetMapping("/siseol")
-	public void siseol() {
-		
-	}
-	
-	@GetMapping("/siseol2")
-	public void siseol2() {
-		
-	}
-	
-	@GetMapping("/siseol3")
-	public void siseol3() {
-		
-	}
-	
-	@GetMapping("/siseol4")
-	public void siseol4() {
-		
-	}
-	
-	@GetMapping("/siseol5")
-	public void siseol5() {
-		
-	}
-	
-	@GetMapping("/tour")
-	public void tour() {
+	@GetMapping("/test")
+	public void test() {
 		
 	}
 	

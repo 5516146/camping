@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.camping.mapper.MemberMapper">
+
+
+  <resultMap type="com.camping.domain.MemberVO" id="memberMap">
+    <id property="mem_id" column="mem_id"/>
+    <result property="mem_id" column="mem_id"/>
+    <result property="mem_pw" column="mem_pw"/>
+    <result property="mem_name" column="mem_name"/>
+    <result property="mem_email" column="mem_email"/>
+    <result property="mem_tel" column="mem_tel"/>
+    <result property="mem_date" column="mem_date"/>
+    <result property="mem_enabled" column="mem_enabled"/>
+    <collection property="authList" resultMap="authMap">
+    </collection> 
+  </resultMap>
+  
+  <resultMap type="com.camping.domain.AuthVO" id="authMap">
+    <result property="mem_id" column="mem_id"/>
+    <result property="auth" column="auth"/>
+  </resultMap>
+  
+  <select id="read" resultMap="memberMap">
+SELECT 
+  mem.mem_id, mem_pw, mem_name, mem_email, mem_tel, mem_date, mem_enabled, auth.auth
+  
+FROM 
+  member mem LEFT OUTER JOIN member_auth auth on mem.mem_id = auth.mem_id 
+WHERE mem.mem_id = #{mem_id} 
+  </select>
+
+</mapper>

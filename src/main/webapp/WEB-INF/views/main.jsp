@@ -3,39 +3,39 @@
 
 <%@include file="includes/header.jsp"%>
 
-
-    <!-- ======= Hero Section ======= -->
-  <section id="hero" >
-    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <!-- ======= Hero Section ======= -->
+<section id="hero" style="margin-top: 50px; height: 755px;">
+    <div id="heroCarousel" data-bs-interval="3000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
       <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
-      <div class="carousel-inner" role="listbox" >
+      <div class="carousel-inner" role="listbox">
 
         <!-- Slide 1 -->
-        <div class="carousel-item active" style="background-image: url(/resources/assets/img/slide/slide-1.jpg)">
+        <div class="carousel-item active" style="background-image: url(/resources/assets/img/slide/main1.jpg); height: 755px;">
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item" style="background-image: url(/resources/assets/img/slide/slide-2.jpg)">
+        <div class="carousel-item" style="background-image: url(/resources/assets/img/slide/main2.jpg); height: 755px;">
         </div>
 
         <!-- Slide 3 -->
-        <div class="carousel-item" style="background-image: url(/resources/assets/img/slide/slide-3.jpg)">
+        <div class="carousel-item" style="background-image: url(/resources/assets/img/slide/main3.jpg); height: 755px;">
         </div>
 
       </div>
 
-      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev" style="text-decoration: none;">
         <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
       </a>
 
-      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next" style="text-decoration: none;">
         <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
       </a>
 
     </div>
   </section><!-- End Hero -->
+
 
   <main id="main">
 

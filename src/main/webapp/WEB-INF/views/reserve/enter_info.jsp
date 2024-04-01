@@ -428,6 +428,11 @@
     </section><!-- End My & Family Section -->
 </main>
 
+<div id="reservationData"
+     data-start-date="<c:out value="${startDate}"/>"
+     data-end-people="<c:out value="${endDate}"/>">
+</div>
+
 <!-- 모달 -->
 <div id="myModal" class="modal">
     <div class="modal-content" align="center">
@@ -445,7 +450,7 @@
                     <option value="toss">토스뱅크</option>
                 </select>
             </p>
-            <button type="submit">확인</button>
+            <button type="submit" onclick="showAlert()">확인</button>
         </form>
     </div>
 </div>
@@ -526,7 +531,7 @@
         var start_date = document.getElementById("start-date").value; // 입력된 값 가져오기
         var end_date = document.getElementById("end-date").value; // 입력된 값 가져오기
 
-        modalContent.innerHTML = "<p>사이트 : " + <c:out value="camp_no"/> + "</p>" +
+        modalContent.innerHTML = "<p>사이트 : " + <c:out value="camp_no"/> +"</p>" +
             "<p>예약자 : " + mem_name + "</p>" +
             "<p>예약 인원 : " + res_people + "</p>" +
             "<p>입실일 : " + start_date + "</p>" + // 모달에 입력된 값 표시
@@ -544,10 +549,49 @@
     }
 
     // alert 띄우기
-    function showAlertAndRedirect() {
+    function showAlert() {
         // alert 창 띄우기
         alert("예약이 완료되었습니다.");
+        document.querySelector("form").submit(); // 폼 제출
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // 이미 예약된 날짜 선택 불가 ( 수정 필요 )
+    var reservationDataElement = document.getElementById('reservationData');
+
+    // 이미 예약된 날짜 목록
+    var startDates = reservationDataElement.getAttribute('data-start-date'); // 예약된 시작 날짜를 서버에서 받아와서 배열에 저장
+    var endDates = reservationDataElement.getAttribute('data-end-date'); // 예약된 종료 날짜를 서버에서 받아와서 배열에 저장
+
+    // 문자열로 변환된 배열을 다시 배열로 파싱
+    var start_Dates = JSON.parse(startDates);
+    var end_Dates = JSON.parse(endDates);
+
+    // 시작일과 종료일 input 요소 가져오기
+    var startDateInput = document.getElementById("start-date");
+    var endDateInput = document.getElementById("end-date");
+
+    // 페이지 로드 시 실행되는 함수
+    window.onload = function () {
+        // 예약된 날짜를 비활성화
+        disableReservedDates();
+    };
+
+    // 예약된 날짜를 비활성화하는 함수
+    function disableReservedDates() {
+        // 시작일과 종료일 각각의 날짜 선택 input 태그에 대해 처리
+        [startDateInput, endDateInput].forEach(function (input) {
+            // 예약된 날짜 목록을 순회하며 각 날짜를 비활성화
+            start_Dates.forEach(function (startDate, index) {
+                // 종료일과 시작일이 예약된 범위에 있는지 확인
+                if (startDate <= endDateInput.value && endDateInput.value <= end_Dates[index]) {
+                    input.disabled = true;
+                }
+            });
+        });
+    }
+
+
 </script>
 <!-- End #main -->
 <%@include file="../includes/footer.jsp" %>

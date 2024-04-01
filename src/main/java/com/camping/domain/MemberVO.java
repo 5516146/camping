@@ -14,7 +14,7 @@ public class MemberVO {
 	private String mem_email;
 	private String mem_tel;
 	private Date mem_date;
-	private boolean enabled;
+	private char mem_enabled;
 	
 	private List<AuthVO> authList;
 

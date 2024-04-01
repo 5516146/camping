@@ -23,4 +23,8 @@ public interface ReserveMapper {
 
     // 예약 정보 삭제
     public int delete(Long reserve_no);
+
+    public List<String> selectStartDate(String camp_no);
+
+    public List<String> selectEndDate(String camp_no);
 }

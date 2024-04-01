@@ -36,6 +36,8 @@
         <h1 class="text-white" style="font-family: 'Nanum Gothic'; font-weight: bold;">예약 확인</h1>
     </div>
 </div>
+<input type="hidden" id="inputValue_mem_id" name="mem_id" value="${reserve.mem_id}">
+<input type="hidden" id="inputValue_reserve_no" name="reserve_no" value="<c:out value='${reserve.reserve_no}'/>">
 
 <%-- 캠핑동 -------------------------------------------------------------------------------------------------------------- --%>
 <div id="slideshow-container-1">
@@ -60,21 +62,45 @@
             </thead>
             <c:forEach items="${reserve}" var="reserve">
                 <tr>
-                        <td><c:out value="${reserve.reserve_no}"/></td>
-                        <td><c:out value="${reserve.camp_no}"/></td>
-                        <td><c:out value="${reserve.reserve_price}"/></td>
-                        <td>
-                            <c:out value="${reserve.reserve_startDate}"/>
-<%--                            <fmt:formatDate pattern="yyyy-MM-dd" value="${reserve.reserve_endDate}"/>--%>
-                        </td>
-                        <td>
-                            <button type="button"><a href="/reserve/getRes?reserve_no=${reserve.reserve_no}">상세보기</a></button>
-                        </td>
+                    <td><c:out value="${reserve.reserve_no}"/></td>
+                    <td><c:out value="${reserve.camp_no}"/></td>
+                    <td><c:out value="${reserve.reserve_price}"/></td>
+                    <td>
+                        <c:out value="${reserve.reserve_startDate}"/>
+                            <%--                            <fmt:formatDate pattern="yyyy-MM-dd" value="${reserve.reserve_endDate}"/>--%>
+                    </td>
+                    <td>
+                        <button type="button"><a href="/reserve/getRes?reserve_no=${reserve.reserve_no}">상세보기</a>
+                        </button>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
     </section>
 </div>
+
+
+<script>
+    var mem_id = document.getElementById("inputValue_mem_id").value; // 입력된 값 가져오기
+    var reserve_no = document.getElementById("inputValue_reserve_no").value; // 입력된 값 가져오기
+
+    // 이전 페이지의 URL을 가져옴
+    var referrerURL = document.referrer;
+
+    // URLSearchParams 객체 생성
+    var searchParams = new URLSearchParams(referrerURL);
+
+    // GET 매개변수 가져오기
+    var parameterValue = searchParams.get("mem_id"); // parameterName은 실제 GET 매개변수의 이름으로 대체해야 함
+
+    // 이전 페이지의 URL이 특정 페이지이고 GET 매개변수도 특정한 값인 경우에만 실행
+    if (referrerURL === "enter_info" && parameterValue === mem_id) {
+        // alert 창을 띄움
+        alert("예약이 완료되었습니다.");
+        alert("예약번호 : " + reserve_no);
+    }
+
+</script>
 
 
 <%@include file="../includes/footer.jsp" %>
