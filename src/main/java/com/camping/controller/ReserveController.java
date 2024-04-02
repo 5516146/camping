@@ -1,5 +1,7 @@
 package com.camping.controller;
 
+import com.camping.domain.EquipmentVO;
+import com.camping.domain.OrderEquipVO;
 import com.camping.domain.ReserveVO;
 import com.camping.service.ReserveService;
 import lombok.Setter;
@@ -35,7 +37,8 @@ public class ReserveController {
         List<String> startDate = reService.find_sDate(site);
         List<String> endDate =  reService.find_eDate(site);
 
-        model.addAttribute("site", site);
+        model.addAttribute("equip", reService.getEquip());
+        model.addAttribute("camp", reService.find_price(site));
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
     }
@@ -43,7 +46,7 @@ public class ReserveController {
     // 예약 실행
     @PostMapping("/register")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public String register(ReserveVO reserveVO, RedirectAttributes rttr){
+    public String register(ReserveVO reserveVO, OrderEquipVO orderEquipVO, RedirectAttributes rttr){
 //        // 포맷 지정
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //
@@ -57,6 +60,10 @@ public class ReserveController {
 
         // reserve 값을 넘김
         ReserveVO reserve = reService.register(reserveVO);
+
+        orderEquipVO.setReserve_no(reserve.getReserve_no().intValue());
+        reService.registerOrder(orderEquipVO);
+
         rttr.addFlashAttribute("reserveNo", reserve.getReserve_no());
 
         return "redirect:/reserve/getMem?mem_id=" + reserve.getMem_id();

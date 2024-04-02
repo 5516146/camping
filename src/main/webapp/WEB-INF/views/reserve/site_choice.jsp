@@ -146,19 +146,19 @@
             <tr style="width: 600px">
                 <td style="width: 200px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="A-1">
+                        <input type="hidden" name="site" value="A1">
                         <button type="submit" class="button-large">A-1 예약</button>
                     </form>
                 </td>
                 <td style="width: 200px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="A-2">
+                        <input type="hidden" name="site" value="A2">
                         <button class="button-large">A-2 예약</button>
                     </form>
                 </td>
                 <td style="width: 200px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="A-3">
+                        <input type="hidden" name="site" value="A3">
                         <button class="button-large">A-3 예약</button>
                     </form>
                 </td>
@@ -203,25 +203,25 @@
             <tr style="width: 600px">
                 <td style="width: 150px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="B-1">
+                        <input type="hidden" name="site" value="B1">
                         <button type="submit" class="button-large">B-1 예약</button>
                     </form>
                 </td>
                 <td style="width: 150px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="B-2">
+                        <input type="hidden" name="site" value="B2">
                         <button type="submit" class="button-large">B-2 예약</button>
                     </form>
                 </td>
                 <td style="width: 150px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="B-3">
+                        <input type="hidden" name="site" value="B3">
                         <button type="submit" class="button-large">B-3 예약</button>
                     </form>
                 </td>
                 <td style="width: 150px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="B-4">
+                        <input type="hidden" name="site" value="B4">
                         <button type="submit" class="button-large">B-4 예약</button>
                     </form>
                 </td>
@@ -266,31 +266,31 @@
             <tr style="width: 600px">
                 <td style="width: 120px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="C-1">
+                        <input type="hidden" name="site" value="C1">
                         <button type="submit" class="button-large">C-1 예약</button>
                     </form>
                 </td>
                 <td style="width: 120px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="C-2">
+                        <input type="hidden" name="site" value="C2">
                         <button type="submit" class="button-large">C-2 예약</button>
                     </form>
                 </td>
                 <td style="width: 120px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="C-3">
+                        <input type="hidden" name="site" value="C3">
                         <button type="submit" class="button-large">C-3 예약</button>
                     </form>
                 </td>
                 <td style="width: 120px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="C-4">
+                        <input type="hidden" name="site" value="C4">
                         <button type="submit" class="button-large">C-4 예약</button>
                     </form>
                 </td>
                 <td style="width: 120px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="C-5">
+                        <input type="hidden" name="site" value="C5">
                         <button type="submit" class="button-large">C-5 예약</button>
                     </form>
                 </td>
@@ -342,7 +342,7 @@
             <tr style="width: 600px">
                 <td style="width: 600px" colspan="2">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="D-1">
+                        <input type="hidden" name="site" value="D1">
                         <button type="submit" class="button-large">D-1 예약</button>
                     </form>
                 </td>
@@ -391,13 +391,13 @@
             <tr style="width: 600px">
                 <td style="width: 300px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="E-1">
+                        <input type="hidden" name="site" value="E1">
                         <button type="submit" class="button-large">E-1 예약</button>
                     </form>
                 </td>
                 <td style="width: 300px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="E-2">
+                        <input type="hidden" name="site" value="E2">
                         <button type="submit" class="button-large">E-2 예약</button>
                     </form>
                 </td>
@@ -449,13 +449,13 @@
             <tr style="width: 600px">
                 <td style="width: 300px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="F-1">
+                        <input type="hidden" name="site" value="F1">
                         <button type="submit" class="button-large">F-1 예약</button>
                     </form>
                 </td>
                 <td style="width: 300px">
                     <form action="/reserve/enter_info" method="get">
-                        <input type="hidden" name="site" value="F-2">
+                        <input type="hidden" name="site" value="F2">
                         <button type="submit" class="button-large">F-2 예약</button>
                     </form>
                 </td>

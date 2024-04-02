@@ -38,6 +38,8 @@ public class HomeController {
 		
 	}
 	
+	@GetMapping("/boardlist")
+	public void boardlist() {}
 	
 	
 }

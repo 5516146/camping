@@ -26,7 +26,13 @@
         width: 100%;
         height: 100%;
         overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8); /* 검은색 배경, 투명도 조절 */
+	    z-index: 999; /* 모달보다 앞에 위치하도록 z-index 설정 */
+	    display: none; /* 기본적으로는 숨김 */
     }
+    .modal.active {
+	    display: block; /* 모달이 열릴 때만 표시 */
+	}
 
     .modal-content {
         position: absolute;

@@ -45,7 +45,7 @@
 
         <div class="section-title">
           <h2>My & Family</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p>"별빛누리캠핑장"은 도심의 소란을 떠나, 자연 속에서의 평온한 휴식을 선사하는 곳입니다.<br>넓은 공간과 다양한 활동으로 자연을 만끽하며 새로운 경험을 쌓을 수 있는 곳입니다. 함께 힐링하고 휴식을 취하며 새로운 모험을 시작해보세요!</p>
         </div>
 
         <div class="row content">
@@ -54,8 +54,6 @@
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
             </p>
             <ul>
               <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
@@ -119,24 +117,22 @@
       <div class="container">
 
         <div class="section-title">
-          <h2>Recent Photos</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <h2>다양한 테마를 가진 캠핑존</h2>
         </div>
-
         <div class="recent-photos-slider swiper">
           <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><a href="/resources/assets/img/recent-photos/recent-photos-1.jpg" class="glightbox"><img src="/resources/assets/img/recent-photos/recent-photos-1.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a href="/resources/assets/img/recent-photos/recent-photos-2.jpg" class="glightbox"><img src="/resources/assets/img/recent-photos/recent-photos-2.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a href="/resources/assets/img/recent-photos/recent-photos-3.jpg" class="glightbox"><img src="/resources/assets/img/recent-photos/recent-photos-3.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a href="/resources/assets/img/recent-photos/recent-photos-4.jpg" class="glightbox"><img src="/resources/assets/img/recent-photos/recent-photos-4.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a href="/resources/assets/img/recent-photos/recent-photos-5.jpg" class="glightbox"><img src="/resources/assets/img/recent-photos/recent-photos-5.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a href="/resources/assets/img/recent-photos/recent-photos-6.jpg" class="glightbox"><img src="/resources/assets/img/recent-photos/recent-photos-6.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a href="/resources/assets/img/recent-photos/recent-photos-7.jpg" class="glightbox"><img src="/resources/assets/img/recent-photos/recent-photos-7.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a href="/resources/assets/img/recent-photos/recent-photos-8.jpg" class="glightbox"><img src="/resources/assets/img/recent-photos/recent-photos-8.jpg" class="img-fluid" alt=""></a></div>
+			<div class="swiper-slide"><a href="/resources/assets/img/카라반.jpeg" class="glightbox"><img src="/resources/assets/img/카라반.jpeg" class="img-fluid" alt=""></a></div>
+			<div class="swiper-slide"><a href="/resources/assets/img/카라반2.jpeg" class="glightbox"><img src="/resources/assets/img/카라반2.jpeg" class="img-fluid" alt=""></a></div>
+			<div class="swiper-slide"><a href="/resources/assets/img/샤워실(1).png" class="glightbox"><img src="/resources/assets/img/샤워실.png" class="img-fluid" alt=""></a></div>
+			<div class="swiper-slide"><a href="/resources/assets/img/탈의실.jpeg" class="glightbox"><img src="/resources/assets/img/탈의실.jpeg" class="img-fluid" alt=""></a></div>
+          	<div class="swiper-slide"><a href="/resources/assets/img/B동.jpeg" class="glightbox"><img src="/resources/assets/img/B동.jpeg" class="img-fluid" alt=""></a></div>
+			<div class="swiper-slide"><a href="/resources/assets/img/B동1.jpeg" class="glightbox"><img src="/resources/assets/img/B동1.jpeg" class="img-fluid" alt=""></a></div>
+			<div class="swiper-slide"><a href="/resources/assets/img/C동.jpg" class="glightbox"><img src="/resources/assets/img/C동.jpg" class="img-fluid" alt=""></a></div>
+			<div class="swiper-slide"><a href="/resources/assets/img/그으을램핑.png" class="glightbox"><img src="/resources/assets/img/그으을램핑.png" class="img-fluid" alt=""></a></div>
+			<div class="swiper-slide"><a href="/resources/assets/img/그으을램핑1.png" class="glightbox"><img src="/resources/assets/img/그으을램핑1.png" class="img-fluid" alt=""></a></div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
-
       </div>
     </section><!-- End Recent Photos Section -->
 

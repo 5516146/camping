@@ -235,6 +235,23 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    .table-equip {
+
+    }
+
+    .tr-equip {
+        border-bottom: 1px solid #95d3ff;
+        height: 200px;
+    }
+
+    .img-equip {
+        height: 200px;
+    }
+
+    .td-equip {
+        height: 200px;
+    }
 </style>
 
 
@@ -246,186 +263,237 @@
 </div>
 
 <%-- 사이트 번호 site_no에 저장 --%>
-<c:set var="site" value="${site}"/>
+<c:set var="site" value="${camp.camp_no}"/>
 <c:set var="site_no" value="${fn:substring(site, 0, 1)}"/>
 
 <main id="main">
-    <!-- ======= My & Family Section ======= -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>정보 입력</h2>
-                <h3><c:out value="${site}"/></h3>
+    <form id="myForm">
+        <!-- ======= My & Family Section ======= -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>정보 입력</h2>
+                    <h3><c:out value="${site}"/></h3>
+                </div>
+                <hr/>
+                <br/>
+                <br/>
             </div>
-            <hr/>
-            <br/>
-            <br/>
-        </div>
 
-        <table align="center">
-            <div class="row content">
-                <tr>
-                    <td>
-                        <!-- ======= Hero Section ======= -->
-                        <section id="hero-camp-a">
-                            <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade"
-                                 data-bs-ride="carousel">
+            <table align="center">
+                <div class="row content">
+                    <tr>
+                        <td>
+                            <!-- ======= Hero Section ======= -->
+                            <section id="hero-camp-a">
+                                <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade"
+                                     data-bs-ride="carousel">
 
-                                <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+                                    <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
-                                <div class="carousel-inner" role="listbox">
-                                    <c:choose>
-                                        <c:when test="${site_no eq 'A'}">
-                                            <!-- Slide 1 -->
-                                            <div class="carousel-item active"
-                                                 style="background-image: url(/resources/assets/img/캠피잉.jpeg)">
-                                            </div>
+                                    <div class="carousel-inner" role="listbox">
+                                        <c:choose>
+                                            <c:when test="${site_no eq 'A'}">
+                                                <!-- Slide 1 -->
+                                                <div class="carousel-item active"
+                                                     style="background-image: url(/resources/assets/img/캠피잉.jpeg)">
+                                                </div>
 
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/캠피잉2.jpeg)">
-                                            </div>
+                                                <!-- Slide 2 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/캠피잉2.jpeg)">
+                                                </div>
 
-                                            <!-- Slide 3 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/캠핑장.png)">
-                                            </div>
+                                                <!-- Slide 3 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/캠핑장.png)">
+                                                </div>
 
-                                        </c:when>
-                                        <c:when test="${site_no eq 'B'}">
-                                            <!-- Slide 1 -->
-                                            <div class="carousel-item active"
-                                                 style="background-image: url(/resources/assets/img/B동.jpeg)">
-                                            </div>
+                                            </c:when>
+                                            <c:when test="${site_no eq 'B'}">
+                                                <!-- Slide 1 -->
+                                                <div class="carousel-item active"
+                                                     style="background-image: url(/resources/assets/img/B동.jpeg)">
+                                                </div>
 
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/B동1.jpeg)">
-                                            </div>
+                                                <!-- Slide 2 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/B동1.jpeg)">
+                                                </div>
 
-                                            <!-- Slide 3 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/B동2.jpeg)">
-                                            </div>
-                                        </c:when>
-                                        <c:when test="${site_no eq 'C'}">
-                                            <!-- Slide 1 -->
-                                            <div class="carousel-item active"
-                                                 style="background-image: url(/resources/assets/img/C동.jpg)">
-                                            </div>
+                                                <!-- Slide 3 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/B동2.jpeg)">
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${site_no eq 'C'}">
+                                                <!-- Slide 1 -->
+                                                <div class="carousel-item active"
+                                                     style="background-image: url(/resources/assets/img/C동.jpg)">
+                                                </div>
 
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/C동1.jpg)">
-                                            </div>
+                                                <!-- Slide 2 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/C동1.jpg)">
+                                                </div>
 
-                                            <!-- Slide 3 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/C동2.jpeg)">
-                                            </div>
-                                        </c:when>
-                                        <c:when test="${site_no eq 'D'}">
-                                            <!-- Slide 1 -->
-                                            <div class="carousel-item active"
-                                                 style="background-image: url(/resources/assets/img/글램핑1.png)">
-                                            </div>
+                                                <!-- Slide 3 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/C동2.jpeg)">
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${site_no eq 'D'}">
+                                                <!-- Slide 1 -->
+                                                <div class="carousel-item active"
+                                                     style="background-image: url(/resources/assets/img/글램핑1.png)">
+                                                </div>
 
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/끌램핑.png)">
-                                            </div>
-                                        </c:when>
-                                        <c:when test="${site_no eq 'E'}">
-                                            <!-- Slide 1 -->
-                                            <div class="carousel-item active"
-                                                 style="background-image: url(/resources/assets/img/끌램핑1.png)">
-                                            </div>
+                                                <!-- Slide 2 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/끌램핑.png)">
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${site_no eq 'E'}">
+                                                <!-- Slide 1 -->
+                                                <div class="carousel-item active"
+                                                     style="background-image: url(/resources/assets/img/끌램핑1.png)">
+                                                </div>
 
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/그으을램핑.png)">
-                                            </div>
+                                                <!-- Slide 2 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/그으을램핑.png)">
+                                                </div>
 
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/그을램핑.png)">
-                                            </div>
+                                                <!-- Slide 2 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/그을램핑.png)">
+                                                </div>
 
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/그을램핑1.png)">
-                                            </div>
-                                        </c:when>
-                                        <c:when test="${site_no eq 'F'}">
-                                            <!-- Slide 2 -->
-                                            <div class="carousel-item active"
-                                                 style="background-image: url(/resources/assets/img/카라반.jpeg)">
-                                            </div>
+                                                <!-- Slide 2 -->
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/그을램핑1.png)">
+                                                </div>
+                                            </c:when>
+                                            <c:when test="${site_no eq 'F'}">
+                                                <!-- Slide 2 -->
+                                                <div class="carousel-item active"
+                                                     style="background-image: url(/resources/assets/img/카라반.jpeg)">
+                                                </div>
 
-                                            <div class="carousel-item"
-                                                 style="background-image: url(/resources/assets/img/카라반2.jpeg)">
-                                            </div>
-                                        </c:when>
-                                    </c:choose>
-                                </div>
-                                <a class="carousel-control-prev" href="#heroCarousel" role="button"
-                                   data-bs-slide="prev">
+                                                <div class="carousel-item"
+                                                     style="background-image: url(/resources/assets/img/카라반2.jpeg)">
+                                                </div>
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#heroCarousel" role="button"
+                                       data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon bi bi-chevron-left"
                                           aria-hidden="true"></span>
-                                </a>
-                                <a class="carousel-control-next" href="#heroCarousel" role="button"
-                                   data-bs-slide="next">
+                                    </a>
+                                    <a class="carousel-control-next" href="#heroCarousel" role="button"
+                                       data-bs-slide="next">
                                     <span class="carousel-control-next-icon bi bi-chevron-right"
                                           aria-hidden="true"></span>
-                                </a>
-                            </div>
-                        </section><!-- End Hero -->
-                    </td>
-                    <td>
-                        <form id="myForm">
+                                    </a>
+                                </div>
+                            </section><!-- End Hero -->
+                        </td>
+                        <td>
                             <ol style="list-style: none;">
                                 <li class="li-padding">
                                     <span>
                                         <i class="ri-check-double-line"></i>
-                                        <strong> 입실 : </strong>
                                         <input type="date" id="start-date" name="reserve_startDate">
-                                        <strong> 퇴실 : </strong>
+                                        <strong> ~ </strong>
                                         <input type="date" id="end-date" name="reserve_endDate">
                                     </span>
                                 </li>
                                 <li class="li-padding">
                                     <i class="ri-check-double-line"></i>
-                                    <strong> 이름 : </strong>
+                                    <strong> 예약자명 : </strong>
                                     <input id="inputValue_mem_name" value="가나다" readonly/>
                                 </li>
                                 <li class="li-padding">
                                     <i class="ri-check-double-line"></i>
                                     <strong> 인원 : </strong>
                                     <input type="number" id="inputValue_res_people" name="reserve_people" min="1"
-                                           max="4">
+                                           max="4" value="2"> 명<br/>
                                     <span> 인원은 1~4명으로 입력 가능합니다.</span>
                                 </li>
                                 <li class="li-padding">
                                     <i class="ri-check-double-line"></i>
                                     <strong> 가격 : </strong>
-                                    <input name="reserve_price" id="inputValue_res_price" value="20000" readonly/>
+                                    <input name="reserve_price" id="inputValue_res_price"
+                                           value="<c:out value='${camp.camp_price}'/>" readonly/> 원
                                 </li>
                             </ol>
-                            <div align="center">
-                                <input type="hidden" id="inputValue_mem_id" name="mem_id" value="jjj"> <!-- 리다이렉션 오류로 임시 처리 -->
-                                <input type="hidden" id="inputValue_camp_no" name="camp_no" value="${site}">
-                                <button type="reset">취소</button>
-                                <button type="submit" id="openModalBtn" onclick="validateInput()">결제</button>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
+                            <input type="hidden" id="inputValue_mem_id" name="mem_id" value="jjj">
+                            <!-- 리다이렉션 오류로 임시 처리 -->
+                            <input type="hidden" id="inputValue_camp_no" name="camp_no" value="${site}">
+                        </td>
+                    </tr>
+                </div>
+            </table>
+            <hr/>
+        </section><!-- End My & Family Section -->
+        <section>
+            <div class="container">
+                <div class="section-title">
+                    <h2>장비 렌탈</h2>
+                </div>
+                <hr/>
+                <br/>
+                <br/>
             </div>
-        </table>
-        <hr/>
-        <br/>
-        <br/>
-    </section><!-- End My & Family Section -->
+
+            <table class="table-equip">
+                <c:forEach items="${equip}" var="equip">
+                    <tr class="tr-equip">
+                        <td class="td-equip">
+                            <img src="#" class="img-equip">
+                        </td>
+                        <td class="td-equip">
+                            <ol style="list-style: none;">
+                                <li class="li-padding">
+                                    <i class="ri-check-double-line"></i><strong>상품명 : </strong><c:out
+                                        value="${equip.equip_name}"/>
+                                </li>
+                                <li class="li-padding">
+                                    <i class="ri-check-double-line"></i><strong>상품 번호 : </strong><c:out
+                                        value="${equip.equip_no}"/>
+                                </li>
+                                <li class="li-padding">
+                                    <i class="ri-check-double-line"></i><strong>상품 재고 : </strong><c:out
+                                        value="${equip.equip_quantity}"/>
+                                </li>
+                                <li class="li-padding">
+                                    <i class="ri-check-double-line"></i>
+                                    <strong>수량 : </strong>
+                                    <input type="number" name="order_quantity" min="0" max="2" value="0"> 개<br/>
+                                    <span> 수량은 1~2개으로 입력 가능합니다.</span>
+                                </li>
+                                <li class="li-padding">
+                                    <i class="ri-check-double-line"></i>
+                                    <STRONG> 가격 : </STRONG><c:out value="${equip.equip_price}"/>
+                                </li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <input type="hidden" name="equip_name" value="<c:out value='${equip.equip_name}'/>"/>
+                    <input type="hidden" name="equip_no" value="<c:out value='${equip.equip_no}'/>"/>
+                    <input type="hidden" name="order_price" value="<c:out value='${equip.equip_price}'/>"/>
+                </c:forEach>
+            </table>
+            <br/>
+            <br/>
+            <br/>
+            <div align="center">
+                <button type="reset">취소</button>
+                <button type="submit" id="openModalBtn" onclick="validateInput()">결제</button>
+            </div>
+        </section>
+    </form>
 </main>
 
 <div id="reservationData"
@@ -441,7 +509,7 @@
         <hr/>
         <form action="/reserve/register" method="post">
             <p id="modalContent"></p>
-<%--            <input type="hidden" name="camp_no" value="${site}">--%>
+            <%--            <input type="hidden" name="camp_no" value="${site}">--%>
             <p align="center">결제 수단 :
                 <select>
                     <option value="shinhan">신한카드</option>
@@ -456,6 +524,9 @@
 </div>
 
 <script>
+
+
+
     // 현재 날짜 가져오기
     var today = new Date();
 

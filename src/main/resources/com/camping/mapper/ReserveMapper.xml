@@ -27,7 +27,7 @@
 
     <!-- 회원 ID를 통해 예약 내용 조회 -->
     <select id="readMemId" resultType="com.camping.domain.ReserveVO">
-        select reserve_no, RESERVE_STARTDATE, RESERVE_ENDDATE, RESERVE_PRICE, CAMP_NO from CAMPING.RESERVE where mem_id = #{mem_id} order by reserve_no desc
+        select reserve_no, RESERVE_STARTDATE, RESERVE_ENDDATE, RESERVE_PRICE, CAMP_NO from CAMPING.RESERVE where mem_id = #{mem_id} order by RESERVE_NO desc
     </select>
 
     <!-- 예약 번호를 통해 예약 내용 조회 -->
@@ -45,12 +45,29 @@
     <delete id="delete">
         delete from CAMPING.RESERVE where RESERVE_NO = #{reserve_no}
     </delete>
-
+    
     <select id="selectStartDate" resultType="String">
-        select DISTINCT RESERVE_STARTDATE from CAMPING.RESERVE where camp_no = #{camp_no}
+        select distinct RESERVE_STARTDATE from CAMPING.RESERVE where CAMP_NO = #{camp_no}
     </select>
 
     <select id="selectEndDate" resultType="String">
-        select DISTINCT RESERVE_ENDDATE from CAMPING.RESERVE where CAMP_NO = #{camp_no}
+        select distinct RESERVE_ENDDATE from CAMPING.RESERVE where CAMP_NO = #{camp_no}
     </select>
+
+    <select id="selectCampPrice" resultType="com.camping.domain.CampVO">
+        select CAMP_PRICE, CAMP_NO from CAMPING.CAMP where CAMP_NO = #{camp_no}
+    </select>
+
+    <select id="selectEquip" resultType="com.camping.domain.EquipmentVO">
+        select equip_no, equip_name, equip_price, equip_quantity, equip_class from CAMPING.EQUIPMENT where EQUIP_NO > 0
+    </select>
+
+    <insert id="insertSelectKeyOrder" parameterType="com.camping.domain.OrderEquipVO">
+        <selectKey keyProperty="order_no" order="BEFORE" resultType="int">
+            select SEQ_ORDER_NO.nextval from dual
+        </selectKey>
+
+        insert into order_equip (order_no, reserve_no, equip_no, equip_name, order_quantity, order_price)
+        values (#{order_no}, #{reserve_no}, #{equip_no}, #{equip_name}, #{order_quantity}, #{order_price})
+    </insert>
 </mapper>

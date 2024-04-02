@@ -1,5 +1,8 @@
 package com.camping.service;
 
+import com.camping.domain.CampVO;
+import com.camping.domain.EquipmentVO;
+import com.camping.domain.OrderEquipVO;
 import com.camping.domain.ReserveVO;
 import com.camping.mapper.ReserveMapper;
 import lombok.AllArgsConstructor;
@@ -56,5 +59,23 @@ public class ReserveServiceImpl implements ReserveService {
     @Override
     public List<String> find_eDate(String camp_no) {
         return reMapper.selectEndDate(camp_no);
+    }
+
+    @Override
+    public CampVO find_price(String camp_no) {
+        return reMapper.selectCampPrice(camp_no);
+    }
+
+    @Override
+    public List<EquipmentVO> getEquip() {
+        return reMapper.selectEquip();
+    }
+
+    @Override
+    public void registerOrder(OrderEquipVO orderEquipVO) {
+
+        reMapper.insertSelectKeyOrder(orderEquipVO);
+
+//        return orderEquipVO;
     }
 }

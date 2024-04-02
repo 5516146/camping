@@ -10,13 +10,13 @@
  
  <!-- Logger 설정 -->
 	 <Loggers>
-	  <Root level="INFO" >
+	  <Root level="info" >
 	   <AppenderRef ref="console"/>  
 	  </Root>
-	  <Logger name="org.zerock" level="INFO" additivity="false">
+	  <Logger name="com.camping" level="info" additivity="false">
 	   <AppenderRef ref="console"/>  
 	  </Logger>
-	  <Logger name="org.springframework" level="DEBUG" additivity="false">
+	  <Logger name="org.springframework" level="info" additivity="false">
 	   <AppenderRef ref="console"/>  
 	  </Logger>
 	 </Loggers>

@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/reserve/getMem.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/reserve" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/reserve/go_modify.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/reserve" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/reserve/site_choice.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/reserve" />
       </map>
     </option>

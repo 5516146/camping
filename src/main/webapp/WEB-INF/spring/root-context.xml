@@ -14,58 +14,50 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 
-	<context:annotation-config/>
-
-	<tx:annotation-driven />
-
-	<mybatis-spring:scan base-package="com.camping.mapper" />
-	<context:component-scan base-package="com.camping.service"/>
-
-	<bean id="reserveMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.camping.mapper.ReserveMapper"/>
-		<!-- sqlSessionFactory 빈을 주입합니다. -->
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-	</bean>
-
-	<bean id="sqlSessionFactory"
-		  class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
-
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-		  destroy-method="close">
-		<constructor-arg ref="hikariConfig" />
-	</bean>
+	<context:annotation-config></context:annotation-config>
 
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 
 		<property name="driverClassName"
-				  value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
-				  value="jdbc:log4jdbc:oracle:thin:@192.168.74.128:1521:XE"/>
-		<property name="username" value="camping"/>
-		<property name="password" value="1234"/>
+			value="jdbc:log4jdbc:oracle:thin:@192.168.74.128:1521:XE"></property>
+		<property name="username" value="camping"></property>
+		<property name="password" value="1234"></property>
 
 	</bean>
 
-	<bean id="transactionManager"
-		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<!-- HikariCP configuration -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
 
+	<tx:annotation-driven />
 
-	<!--	<context:component-scan-->
-<!--		base-package="org.zerock.aop"></context:component-scan>-->
-<!--		-->
-<!--	<context:component-scan-->
-<!--    base-package="org.zerock.task"></context:component-scan>-->
+	<mybatis-spring:scan
+		base-package="com.camping.mapper" />
+
+	<context:component-scan
+		base-package="com.camping.service"></context:component-scan>
+	<context:component-scan
+		base-package="com.camping.aop"></context:component-scan>
+		
+	<context:component-scan
+    base-package="com.camping.task"></context:component-scan>
 		
 
-	<aop:aspectj-autoproxy/>
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 	<task:annotation-driven />
-
-	<context:component-scan base-package="com.camping.mapper" />
-	<context:component-scan base-package="com.camping.service" />
 </beans>
