@@ -14,5 +14,6 @@ public class ReserveVO {
 	private Long reserve_price;
 	private String camp_no;
 	private String mem_id;
+	private int rental_choice;
 
 }

@@ -1,8 +1,6 @@
 package com.camping.service;
 
 import com.camping.domain.CampVO;
-import com.camping.domain.EquipmentVO;
-import com.camping.domain.OrderEquipVO;
 import com.camping.domain.ReserveVO;
 
 import java.util.List;
@@ -29,8 +27,4 @@ public interface ReserveService {
     public List<String> find_eDate(String camp_no);
 
     public CampVO find_price(String camp_no);
-
-    public List<EquipmentVO> getEquip();
-
-    public void registerOrder(OrderEquipVO orderEquipVO);
 }

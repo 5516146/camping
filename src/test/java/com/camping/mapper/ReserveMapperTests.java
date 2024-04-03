@@ -21,8 +21,8 @@ public class ReserveMapperTests {
 
         reserveVO.setReserve_people(2L);
         reserveVO.setReserve_price(20000l);
-        reserveVO.setCamp_no("A-1");
-        reserveVO.setMem_id("jjj");
+        reserveVO.setCamp_no("A1");
+        reserveVO.setMem_id("admin00");
         reserveVO.setReserve_startDate("2024-03-30");
         reserveVO.setReserve_endDate("2024-03-31");
 

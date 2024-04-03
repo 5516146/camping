@@ -4,18 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.camping.mapper.ReserveMapper">
 
-<!--    <insert id="insertSelectKey">-->
-<!--        &lt;!&ndash; 시퀀스를 사용한 키를 먼저 생성하여 확인 &ndash;&gt;-->
-<!--        &lt;!&ndash; 생성한 키를 reserve_no 이름으로 생성 &ndash;&gt;-->
-<!--        <selectKey keyProperty="reserve_no" order="BEFORE" resultType="int">-->
-<!--            select seq_reserve_no.nextval from dual-->
-<!--        </selectKey>-->
-
-<!--        &lt;!&ndash; 미리 생성한 키를 사용한 insert 구문 &ndash;&gt;-->
-<!--        insert into RESERVE (reserve_no, reserve_people, camp_no, mem_id)-->
-<!--        values (#{reserve_no}, #{reserve_people}, #{camp_no}, #{mem_id})-->
-<!--    </insert>-->
-
     <insert id="insertSelectKey" parameterType="com.camping.domain.ReserveVO">
         <selectKey keyProperty="reserve_no" order="BEFORE" resultType="Long">
             select seq_reserve_no.nextval from dual
@@ -58,16 +46,4 @@
         select CAMP_PRICE, CAMP_NO from CAMPING.CAMP where CAMP_NO = #{camp_no}
     </select>
 
-    <select id="selectEquip" resultType="com.camping.domain.EquipmentVO">
-        select equip_no, equip_name, equip_price, equip_quantity, equip_class from CAMPING.EQUIPMENT where EQUIP_NO > 0
-    </select>
-
-    <insert id="insertSelectKeyOrder" parameterType="com.camping.domain.OrderEquipVO">
-        <selectKey keyProperty="order_no" order="BEFORE" resultType="int">
-            select SEQ_ORDER_NO.nextval from dual
-        </selectKey>
-
-        insert into order_equip (order_no, reserve_no, equip_no, equip_name, order_quantity, order_price)
-        values (#{order_no}, #{reserve_no}, #{equip_no}, #{equip_name}, #{order_quantity}, #{order_price})
-    </insert>
 </mapper>

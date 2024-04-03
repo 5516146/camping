@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@include file="includes/header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 <br>
 <br>
 <br>
 <!-- ======= My & Family Section ======= -->
-<section id="about" class="about">
+<section id="about" class="about find-page">
 	<h2>
 		<c:out value="${error}" />
 	</h2>
@@ -15,40 +15,32 @@
 	</h2>
 	<div class="section">
 		<div class="container">
-			<div class="row full-height justify-content-center">
-				<div class="col-12 text-center align-self-center py-5">
-					<div class="section pb-5 pt-5 pt-sm-2 text-center">
-						<h6 class="mb-0 pb-3">
-							<span>LOGIN</span>
-						</h6>
-						<input class="checkbox" type="checkbox" id="reg-log"
-							name="reg-log" /> <label for="reg-log"></label>
+			<div class="title"><span class="yogi">아이디 찾기</span></div>
+					<div class="center">
 						<div class="card-3d-wrap mx-auto">
 							<div class="card-3d-wrapper">
-							
-								<div class="card-front">
+								<div class="card-front find-card">
 									<div class="center-wrap">
 										<div class="section text-center">
-											<h3 class="mb-4 pb-3">아이디 찾기</h3>
 											<div class="panel-body">
 											<div id="findId-form">
 												<form role="form" method='post' action="/member/findId">
 													<!-- 3. post 메서드를 통해서 /login URI로 폼 데이터 전달(아이디, 비밀번호(토큰) 전달) -> security-context.xml로 넘어감 -->
 													<div class="form-group">
-														<input type="text" name="mem_name" class="form-style"
+														<input type="text" name="mem_name" class="form-style yogi yo"
 															id="myName" autocomplete="off" required="required"
 															placeholder="이름"> <i
 															class="input-icon uil uil-at"></i>
 													</div>
 													<div class="form-group">
-														<input type="text" name="mem_tel" class="form-style"
+														<input type="text" name="mem_tel" class="form-style yogi yo"
 															id="myTel" autocomplete="off" required="required"
 															placeholder="전화번호"> <i
 															class="input-icon uil uil-at"></i>
 													</div>
 													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-												<button type="submit"
-														class="btn btn-lg btn-success btn-block">검색</button>
+												<button type="submit" id="findButton"
+														class="btn btn-lg btn-find btn-block yogi">검색</button>
 												</form>
 												</div>
 											</div>
@@ -60,10 +52,46 @@
 							</div>
 						</div>
 					</div>
+					
+					
+					<div class="title"><span class="yogi">비밀번호 찾기</span></div>
+					<div class="center">
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front find-card">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<div class="panel-body">
+											<div id="findId-form">
+												<form role="form" method='post' action="/member/findId">
+													<!-- 3. post 메서드를 통해서 /login URI로 폼 데이터 전달(아이디, 비밀번호(토큰) 전달) -> security-context.xml로 넘어감 -->
+													<div class="form-group">
+														<a href="/member/generateOTP">
+    														<input type="button" value="휴대폰으로 찾기" />
+														</a>
+													</div>
+													<div class="form-group">
+														<a href="/member/sendPasswordResetEmail">
+    														<input type="button" value="이메일로 찾기" />
+														</a>
+													</div>
+													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+												<button type="submit" id="findButton"
+														class="btn btn-lg btn-find btn-block yogi">검색</button>
+												</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+							</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
-		</div>
-	</div>
 
 
 	<!-- jQuery -->
@@ -118,4 +146,4 @@
 	</script>
 </section>
 
-<%@include file="includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>

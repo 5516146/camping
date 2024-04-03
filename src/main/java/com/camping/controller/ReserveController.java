@@ -1,8 +1,8 @@
 package com.camping.controller;
 
-import com.camping.domain.EquipmentVO;
-import com.camping.domain.OrderEquipVO;
+import com.camping.domain.MemberVO;
 import com.camping.domain.ReserveVO;
+import com.camping.service.MemberService;
 import com.camping.service.ReserveService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -29,68 +27,55 @@ public class ReserveController {
     @Setter(onMethod_ = @Autowired)
     private ReserveService reService;
 
+    @Setter(onMethod_ = @Autowired)
+    private MemberService memService;
+
     @GetMapping("/site_choice")
     public void site_choice(){}
 
     @GetMapping("/enter_info")
-    public void enter_info(@RequestParam("site") String site, Model model){
+    public void enter_info(@RequestParam("site") String site, Principal principal, Model model){
         List<String> startDate = reService.find_sDate(site);
         List<String> endDate =  reService.find_eDate(site);
+        String mem_id = principal.getName();
 
-        model.addAttribute("equip", reService.getEquip());
         model.addAttribute("camp", reService.find_price(site));
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
+        model.addAttribute("mem_id", mem_id);
     }
 
     // 예약 실행
     @PostMapping("/register")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-    public String register(ReserveVO reserveVO, OrderEquipVO orderEquipVO, RedirectAttributes rttr){
-//        // 포맷 지정
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        // 포맷 적용하여 문자열로 변환
-//        String startDate = sdf.format(reserveVO.getReserve_startDate());
-//        String endDate = sdf.format(reserveVO.getReserve_endDate());
-//
-//        // 포멧팅한 날짜 값을 VO에 저장
-//        reserveVO.setReserve_startDate(startDate);
-//        reserveVO.setReserve_startDate(endDate);
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+    public String register(ReserveVO reserveVO, Principal principal, RedirectAttributes rttr, Model model){
 
         // reserve 값을 넘김
+        reserveVO.setMem_id(principal.getName());
         ReserveVO reserve = reService.register(reserveVO);
 
-        orderEquipVO.setReserve_no(reserve.getReserve_no().intValue());
-        reService.registerOrder(orderEquipVO);
-
         rttr.addFlashAttribute("reserveNo", reserve.getReserve_no());
+        model.addAttribute("reserve", reserve);
 
         return "redirect:/reserve/getMem?mem_id=" + reserve.getMem_id();
     }
 
     // 회원의 모든 예약정보
-
     @GetMapping("/register")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
     public void registerGet(String mem_id, Model model){ }
 
 
-//    // 예약 실행
-//    @PostMapping("/register")
-//    public void register(ReserveVO reserveVO, RedirectAttributes rttr){
-//        reService.register(reserveVO);
-//
-//        return "/reserve/getMem";
-//    }
-
     // 회원의 모든 예약정보
     @GetMapping("/getMem")
-    public void getMem(String mem_id, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String mem_id1 = authentication.getName();
+    public String getMem(String mem_id, Model model){
+        System.out.println(mem_id);
 
-        model.addAttribute("reserve", reService.getMem(mem_id));
+        List<ReserveVO> reserveVO = reService.getMem(mem_id);
+
+        model.addAttribute("reserve", reserveVO);
+
+        return "/reserve/getMem";
     }
 
     // 예약 1건의 예약정보

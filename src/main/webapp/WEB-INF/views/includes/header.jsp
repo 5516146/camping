@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -150,19 +151,23 @@
             <ul>
               <li><a href="/notice/noticelist">공지사항</a></li>
               <li><a href="/question">자주하는 질문</a></li>
-              <li><a href="/camping/list">문의게시판</a></li>
+              <li><a href="#">Drop Down 3</a></li>
               <li><a href="/test">테스트페이지</a></li>
             </ul>
           </li>
           <li><a href="/tour/tour1"><span class="yogi">주변 관광지</span></a></li>
 		  <sec:authorize access="isAnonymous()">
-			<li><a href="/customLogin"><span class="yogi">로그인</span></a></li>
+			<li><a href="/member/customLogin"><span class="yogi">로그인</span></a></li>
+		  	<li><a href="/member/join"><span class="yogi">회원가입</span></a></li>
 		  </sec:authorize>
 		  <sec:authorize access="isAuthenticated()">
-		   	<li class="dropdown"><a href="#"><span class="yogi">마이페이지</span> <i class="bi bi-chevron-down"></i></a>
+		  <sec:authentication property="principal" var="pinfo"/>
+		   	<li class="dropdown"><a href="/member/myAccount"><span class="yogi">마이페이지</span> <i class="bi bi-chevron-down"></i></a>
 	            <ul>
+	            	<p>✅어서오세요, ${ member.mem_name }님</p>
 	              <li><a href="#">예약 현황</a></li>
-	              <li><a href="#">회원정보 수정</a></li>
+	              <li><a href="/member/myAccount">내 정보 보기</a></li>
+	              <li><a href="/member/updateForm">회원정보 수정</a></li>
 			      <li>
 			        <form id="logoutForm" action="/customLogout" method="post">
 			            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -171,6 +176,36 @@
 			      </li>
 	            </ul>
             </li>
+            <!-- Modal 추가 -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                <h4 class="modal-title" id="myModalLabel">로그인 완료</h4>
+			            </div>
+			            <div class="modal-body">
+			                <p>로그인이 완료되었습니다.</p>
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var chk = <%= request.getParameter("chk") %>;
+            if (chk !== "" && chk !== null) {
+                $("#myModal").modal("show");
+                $("#myModal").on("hidden.bs.modal", function() {
+                    $(this).remove();
+                });
+            }
+        });
+    </script>
 		  </sec:authorize>
 	  	  <%-- <sec:authorize access="isAuthenticated()">
 		  	<li><a href="/customLogout"><span class="yogi">로그아웃</span></a></li>

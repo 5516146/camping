@@ -137,5 +137,6 @@
     </section><!-- End Recent Photos Section -->
 
   </main><!-- End #main -->
+  
 <%@include file="includes/footer.jsp"%>
   

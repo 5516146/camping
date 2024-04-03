@@ -487,7 +487,7 @@ h6 {
 # Sections General
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
+  padding: 60px 60px;
 }
 
 .section-bg {
@@ -1352,4 +1352,656 @@ section {
 
 #footer .credits a:hover {
   color: #008df1;
+}
+
+
+.myPage-sideMenu {
+	border-radius: 5px;
+	position: absolute;
+	width: 20%;
+	height: 50%;
+	text-align: center;
+	left: 6.5%;
+	top: 32%;
+}
+
+.btn-sidebar {
+  box-sizing: border-box;
+  appearance: none;
+  background-color: #000; /* 기본 배경색을 검은색(#000)으로 설정 */
+  border: 2px solid transparent; /* 테두리는 없음 */
+  border-radius: 0.6em;
+  color: #fff; /* 기본 텍스트 색상을 흰색(#fff)으로 설정 */
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  justify-content: center; /* 텍스트를 가운데 정렬하기 위해 추가 */
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 20px; /* 처음 주신 코드로 여백을 20px로 설정 */
+  padding: 1.2em 2.8em; /* 처음 주신 코드로 패딩 값 설정 */
+  text-decoration: none;
+  text-align: center; /* 텍스트를 가운데 정렬하기 위해 추가 */
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  width: 200px; /* 너비를 통일시키기 위해 고정값으로 설정 */
+  transition: color 0.3s, background-color 0.3s; /* 전환 효과를 추가 */
+
+  &:hover,
+  &:focus {
+    color: #000; /* 마우스를 가져다 댔을 때 텍스트 색상을 검은색(#000)으로 변경 */
+    background-color: transparent; /* 마우스를 가져다 댔을 때 배경을 투명으로 변경 */
+    outline: 0;
+  }
+}
+
+.first {
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  &:hover {
+    box-shadow: 0 0 40px 40px red inset; /* $red 대신에 직접 색상 값을 지정 */
+  }
+}
+
+.parents-contents {
+	margin-top: 3%;
+}
+
+.contents {
+	width: 50%;
+	height: 80%;
+	position: relative;
+	left: 31%;
+}
+
+.jb-division-line {
+  border-top: 1px solid #444444;
+  margin: 30px 0px;
+  width: 700px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 700px;
+  background-color: white;
+  left: -50%;
+}
+
+thead{
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 테이블 행 */
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  padding: 8px;
+  text-align: left;
+  text-align: center;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  color: #000;
+}
+
+/* 테이블 올렸을 때 */
+tbody tbtr:hover {
+  background-color: rgba(0, 0, 128, 0.5); /* 연한 네이비 계열의 색상 및 투명도 설정 */
+  cursor: pointer;
+}
+
+/* 테이블 비율 */
+th:nth-child(1),
+td:nth-child(1) {
+  width: 15%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 55%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 30%;
+}
+
+th, td {
+  border-left: none;
+  border-right: none;
+}
+
+.non-editable {
+  cursor: not-allowed; /* 커서를 not-allowed로 변경하여 사용자에게 수정이 불가능한 상태임을 시각적으로 표시합니다. */
+  color: #666; /* 텍스트를 회색으로 변경하여 비활성화된 상태를 나타냅니다. */
+}
+
+.alert_design_form {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	background-color: rgba(0,0,0,.3);
+}
+.alert_design_form__inner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	padding: 40px;
+	background-color: #fff;
+	border-radius: 16px;
+	box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+	width: 90%;
+	max-width: 534px;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: #242424;
+	margin-top: -30px;
+	transition: .2s all ease-in-out;
+}
+.alert_design_form.on .alert_design_form__inner {
+	margin-top: 0;
+}
+.alert_design_form__inner__cont h2 {
+	font-size: 24px;
+	font-weight: 600;
+}
+.alert_design_form__inner__cont p {
+	font-size: 15px;
+	font-weight: 300;
+	margin-top: 20px;
+}
+.alert_design_form__inner__btn {
+	margin-top: 30px;
+}
+.alert_design_form__inner__btn a {
+	display: inline-block;
+	padding: 10px 35px;
+	background-color: #6465CF;
+	line-height: 1;
+	font-size: 15px;
+	font-weight: 300;
+	color: #fff;
+	border-radius: 6px;
+	box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.35);
+}
+.alert_design_form__inner__btn a:hover {
+	background-color: #7677eb;
+}
+
+.modifyMyInfo {
+  left: 20%;
+  text-align: center;
+  position: relative;
+  display: flex; /* 부모 요소를 플렉스 컨테이너로 설정 */
+  justify-content: center; /* 가로 정렬을 위해 중앙 정렬 */
+  margin-top: 5%;
+}
+
+#modifyButton {
+  background-color: #3498db; /* 파란색 */
+}
+
+#deleteButton {
+  background-color: #e74c3c; /* 빨간색 */
+}
+
+#logoutButton {
+  background-color: #2ecc71; /* 초록색 */
+}
+
+/* 모든 버튼에 공통으로 적용되는 스타일 */
+#modifyButton, #deleteButton, #logoutButton {
+  color: white; /* 버튼 텍스트 색상 */
+  border: none; /* 테두리 없음 */
+  padding: 10px 20px; /* 내부 여백 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  text-decoration: none; /* 밑줄 제거 */
+  display: inline-block; /* 인라인 요소로 표시 */
+  font-size: 16px; /* 글꼴 크기 */
+  margin: 10px; /* 외부 여백 */
+  cursor: pointer; /* 커서 모양 변경 */
+  border-radius: 5px; /* 버튼 테두리 둥글게 */
+}
+
+/* 버튼에 마우스를 올렸을 때 배경색 변화 */
+#modifyButton:hover {
+  background-color: #2980b9; /* 파란색의 더 진한 버전 */
+}
+
+#deleteButton:hover {
+  background-color: #c0392b; /* 빨간색의 더 진한 버전 */
+}
+
+#logoutButton:hover {
+  background-color: #27ae60; /* 초록색의 더 진한 버전 */
+}
+
+
+
+/* 폼 그룹에 대한 스타일 */
+.form-group {
+  margin-bottom: 20px; /* 아래 여백 추가 */
+}
+
+/* 레이블에 대한 스타일 */
+label {
+  font-weight: bold; /* 굵은 글씨체 */
+  margin-bottom: 20px;  
+  display: inline-block; /* 인라인 요소로 설정하여 텍스트와 같이 나타나도록 함 */
+  width: 30%; /* 레이블의 너비 설정 */
+}
+
+/* 입력 컨트롤에 대한 스타일 */
+.form-control {
+  width: 70%; /* 입력 컨트롤의 폭을 70%로 설정 */
+  max-width: 500px; /* 최대 너비 설정 */
+  padding: 10px; /* 내부 여백 추가 */
+  font-size: 16px; /* 폰트 크기 설정 */
+  border: 1px solid #ced4da; /* 테두리 추가 */
+  border-radius: 4px; /* 둥근 테두리 */
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* 전환 효과 추가 */
+}
+
+/* 읽기 전용 입력 컨트롤에 대한 스타일 */
+.form-control[readonly] {
+  background-color: #f8f9fa; /* 배경색 추가 */
+}
+
+.modify-box {
+	margin-left: 30%;
+}
+
+#modifyInfo-title {
+	margin-left: 30%;
+}
+
+#modifyCompleted {
+	margin-left: 50%;
+}
+
+
+
+.title {
+	color: #000;
+	font-weight: 700px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.card-3d-wrap {
+	margin-left: 31%;
+	position: relative;
+	width: 440px;
+	max-width: 100%;
+	height: 400px;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	perspective: 800px;
+	margin-top: 60px;
+	text-align: center;
+}
+
+.card-front, .card-back {
+	width: 100%;
+	height: 120%;
+	background-color: #24325d;
+	background-size: 300%;
+	position: absolute;
+	border-radius: 6px;
+	left: 0;
+	top: -13%;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.noshow {
+	display: none;
+}
+
+.card-back {
+	transform: rotateY(180deg);
+}
+
+.center-wrap {
+	position: absolute;
+	width: 100%;
+	padding: 0 35px;
+	top: 50%;
+	left: 0;
+	transform: translate3d(0, -50%, 35px) perspective(100px);
+	z-index: 20;
+	display: block;
+}
+
+.form-group {
+	position: relative;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+.form-style {
+	padding: 0px 20px;
+	margin-bottom: 10px;
+	height: 40px;
+	font-weight: 500;
+	border-radius: 4px;
+	font-size: 14px;
+	line-height: 22px;
+	letter-spacing: 0.5px;
+	outline: none;
+	color: #000;
+	background-color: #fff;
+	border: none;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+	box-shadow: 0 4px 8px 0 rgba(21, 21, 21, .2);
+}
+
+.form-style:focus, .form-style:active {
+	border: none;
+	outline: none;
+	box-shadow: 0 4px 8px 0 rgba(21, 21, 21, .2);
+}
+
+.form-group input:-ms-input-placeholder {
+	color: #c4c3ca;
+	opacity: 0.7;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+.form-group input::-moz-placeholder {
+	color: #c4c3ca;
+	opacity: 0.7;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+.form-group input:-moz-placeholder {
+	color: #c4c3ca;
+	opacity: 0.7;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+.form-group input::-webkit-input-placeholder {
+	color: #c4c3ca;
+	opacity: 0.7;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+.form-group input:focus:-ms-input-placeholder {
+	opacity: 0;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+.form-group input:focus::-moz-placeholder {
+	opacity: 0;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+.form-group input:focus:-moz-placeholder {
+	opacity: 0;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+.form-group input:focus::-webkit-input-placeholder {
+	opacity: 0;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+}
+
+.remember {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.remember:label {
+	cursor: pointer;
+}
+
+.error-msg {
+	font-family: 'Poppins', sans-serif;
+	font-style: bold;
+	background-color: translate;
+}
+
+.btn {
+	border-radius: 4px;
+	height: 44px;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+	padding: 0 30px;
+	letter-spacing: 1px;
+	display: -webkit-inline-flex;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	justify-content: center;
+	-ms-flex-pack: center;
+	text-align: center;
+	border: none;
+	background-color: white;
+	color: #000000;
+	box-shadow: 0 8px 24px 0 rgba(255, 235, 167, .2);
+}
+
+.btn:active, .btn:focus {
+	background-color: #000000;
+	color: #ffffff;
+	box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+}
+
+.btn:hover {
+	background-color: #000000;
+	color: #ffffff;
+	box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+}
+
+.authMessage {
+	text-align: center;
+	position: relative;
+	font-weight: 500px;
+}
+
+.btn-authbtn {
+	width: 23%;
+	height: 32px;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 11px;
+}
+
+.btn-authNum {
+	width: 23%;
+	height: 32px;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 11px;
+	font-weight: 400;
+	font-style: normal;
+}
+
+.authNum {
+	width: 50%;
+	height: 32px;
+	font-family: 'Poppins', sans-serif;
+	font-style: normal;
+	font-size: 13px;
+	color: black;
+	font-weight: 500;
+	border-radius: 4px;
+	line-height: 22px;
+	letter-spacing: 1px;
+	text-align: center;
+	outline: none;
+	color: #c4c3ca;
+	background-color: #1f2029;
+	border: none;
+	-webkit-transition: all 200ms linear;
+	transition: all 200ms linear;
+	box-shadow: 0 4px 8px 0 rgba(21, 21, 21, .2);
+}
+
+.modal_body {
+	position: absolute;
+	top: 50%;
+	width: 400px;
+	height: 600px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateY(-50%);
+}
+
+.modal-body {
+	color: black;
+}
+
+/* 말풍선 적절한 top 과 margin-left 로 위치조정 */
+.arrow_box {
+  position:absolute; 
+    left:0px; 
+    top:52px; 
+    background: #646FD4; 
+    padding: 10px; 
+    border-radius:5px; 
+    color: #fff; 
+    text-align: center; 
+    display: none;
+}
+
+.arrow_box:after {
+  display: block; 
+    content: ''; 
+    position: absolute; 
+    top: -7px; 
+    left:15px; 
+    width: 0px; 
+    height: 0px; 
+    border-top: 8px solid none; 
+    border-left: 8psolid transparent; 
+    border-right: 8px solid transparent; 
+    border-bottom: 8px solid #646FD4;
+}
+
+span:hover + p.arrow_box {
+  display: block;
+}
+
+#joinButton, #loginButton, #findButton {
+	background-color: #fff;
+	color: #000;
+	font-size: 12px;
+	height: 30px;
+}
+
+#joinButton {
+	margin-top: 25px;
+}
+
+.yo {
+	font-size: 5px;
+}
+
+.findAccount.yogi.yo{
+	color: yellow;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+#rememberAccount {
+	color: #fff;
+}
+
+.sign-form {
+	magin-top: 22px;
+}
+.myInformation {
+	font-size: 80px;
+}
+#mem_id {
+	width: 50%;
+}
+#chk_mem_id{
+	width: 30%;
+}
+.btn-chk, .btn-find {
+	height: 40px;
+	border-radius: 5px;
+	border: none;
+	color: #fff;
+	background-color: #000;
+}
+.btn_chk:hover {
+	color: #000;
+	background-color: #fff;
+	box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+}
+.btn_chk:hover, .btn_chk:hover {
+	background-color: #000000;
+	color: #ffffff;
+	box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+}
+
+.findId {
+	color: #fff;
+	margin: 0px 0px;
+}
+
+.cross-line {
+	border-top: 3px solid #fff;
+  	margin: 15px 0px;
+  	margin-left: 35px;
+  	align: center;
+  	width: 300px;
+  	color: #fff;
+	box-shadow: 0 8px 24px 0 rgba(255, 235, 167, .2);
+}
+
+.foundId {
+	color: yellow;
+	margin-top: 20%;
+}
+
+.btn-fromFindToLogin {
+	margin-top: 15%;
+}
+
+.find-card {
+	height: 70%;
+}
+
+.find-page {
+	padding: 8%;
 }

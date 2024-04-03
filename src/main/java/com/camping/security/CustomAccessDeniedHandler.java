@@ -24,8 +24,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {  //접�
     log.error("접근 제한 핸들러 실행");
 
     log.error("접근 제한 되었습니다. accessError로 보내드리죠.");
-    
-    response.sendRedirect("/accessError"); //접근 제한이 걸리는 경우 리다이렉트 함
+
+    response.sendRedirect("/member/accessError"); //접근 제한이 걸리는 경우 리다이렉트 함
 
   }
 

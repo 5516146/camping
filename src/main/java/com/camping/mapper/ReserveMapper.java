@@ -1,7 +1,6 @@
 package com.camping.mapper;
 
 import com.camping.domain.*;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,9 +26,5 @@ public interface ReserveMapper {
     public List<String> selectEndDate(String camp_no);
 
     public CampVO selectCampPrice(String camp_no);
-
-    public List<EquipmentVO> selectEquip();
-
-    public void insertSelectKeyOrder(OrderEquipVO orderEquipVO);
 
 }

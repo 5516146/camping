@@ -2,6 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <%@include file="../includes/header.jsp" %>
 
 <style>
@@ -200,10 +202,10 @@
     }
 
     /* 모달 스타일 */
-    .modal {
+    .modal, .modal1 {
         display: none;
         position: fixed;
-        z-index: 1;
+        z-index: 15;
         left: 0;
         top: 0;
         width: 100%;
@@ -222,7 +224,7 @@
     }
 
     /* 모달 닫기 버튼 스타일 */
-    .close {
+    .close, .close1 {
         color: #aaa;
         float: right;
         font-size: 28px;
@@ -234,10 +236,6 @@
         color: black;
         text-decoration: none;
         cursor: pointer;
-    }
-
-    .table-equip {
-
     }
 
     .tr-equip {
@@ -252,6 +250,16 @@
     .td-equip {
         height: 200px;
     }
+
+    .hr-custom {
+        width: 70%;
+    }
+
+    .hr-custom2 {
+        width: 10%;
+    }
+
+
 </style>
 
 
@@ -265,6 +273,7 @@
 <%-- 사이트 번호 site_no에 저장 --%>
 <c:set var="site" value="${camp.camp_no}"/>
 <c:set var="site_no" value="${fn:substring(site, 0, 1)}"/>
+
 
 <main id="main">
     <form id="myForm">
@@ -448,7 +457,7 @@
             </div>
 
             <table class="table-equip">
-                <c:forEach items="${equip}" var="equip">
+                <c:forEach items="${option}" var="option">
                     <tr class="tr-equip">
                         <td class="td-equip">
                             <img src="#" class="img-equip">
@@ -457,25 +466,25 @@
                             <ol style="list-style: none;">
                                 <li class="li-padding">
                                     <i class="ri-check-double-line"></i><strong>상품명 : </strong><c:out
-                                        value="${equip.equip_name}"/>
+                                        value="${option.option_name}"/>
                                 </li>
                                 <li class="li-padding">
                                     <i class="ri-check-double-line"></i><strong>상품 번호 : </strong><c:out
-                                        value="${equip.equip_no}"/>
+                                        value="${option.option_no}"/>
                                 </li>
                                 <li class="li-padding">
                                     <i class="ri-check-double-line"></i><strong>상품 재고 : </strong><c:out
-                                        value="${equip.equip_quantity}"/>
+                                        value="${option.option_quantity}"/>
                                 </li>
                                 <li class="li-padding">
                                     <i class="ri-check-double-line"></i>
                                     <strong>수량 : </strong>
-                                    <input type="number" name="order_quantity" min="0" max="2" value="0"> 개<br/>
+                                    <input type="number" name="rental_quantity" min="0" max="2" value="0"> 개<br/>
                                     <span> 수량은 1~2개으로 입력 가능합니다.</span>
                                 </li>
                                 <li class="li-padding">
                                     <i class="ri-check-double-line"></i>
-                                    <STRONG> 가격 : </STRONG><c:out value="${equip.equip_price}"/>
+                                    <STRONG> 가격 : </STRONG><c:out value="${option.option_price}"/>
                                 </li>
                             </ol>
                         </td>
@@ -496,20 +505,17 @@
     </form>
 </main>
 
-<div id="reservationData"
-     data-start-date="<c:out value="${startDate}"/>"
-     data-end-people="<c:out value="${endDate}"/>">
-</div>
 
-<!-- 모달 -->
-<div id="myModal" class="modal">
+<!-- 결제 모달 -->
+<div id="myModal2" class="modal">
     <div class="modal-content" align="center">
         <span class="close">&times;</span>
-        <h2>결제 정보</h2>
+        <h1>결제 정보</h1>
         <hr/>
+        <br/><br/>
+        <h2>♢사이트 예약 정보♢</h2>
         <form action="/reserve/register" method="post">
             <p id="modalContent"></p>
-            <%--            <input type="hidden" name="camp_no" value="${site}">--%>
             <p align="center">결제 수단 :
                 <select>
                     <option value="shinhan">신한카드</option>
@@ -518,37 +524,57 @@
                     <option value="toss">토스뱅크</option>
                 </select>
             </p>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button type="submit" onclick="showAlert()">확인</button>
         </form>
     </div>
 </div>
 
+
+<!-- 이미 예약된 날짜 모달 -->
+<div id="myModal1" class="modal1">
+    <div class="modal-content" align="center">
+        <span class="close1">&times;</span>
+        <h2>♢예약된 날짜 정보♢</h2>
+        <br/>
+        <hr/>
+        <br/>
+        <table style="width: 80%; border: 1px solid black">
+            <tr>
+                <th style="width: 15px; border: 1px solid black">
+                    <strong>입실일</strong>
+                </th>
+                <c:forEach items="${startDate}" var="startDate">
+                    <td style="padding: 0px">
+                        <c:set var="startDate" value="${fn:substring(startDate, 0, 11)}"/>
+                        <p><c:out value="${startDate}"/></p>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th></th>
+                <c:forEach items="${startDate}" var="start-date">
+                    <td><strong style="font-size: 30px">~</strong></td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>
+                    <strong>퇴실일</strong>
+                </th>
+                <c:forEach items="${endDate}" var="endDate">
+                    <td style="padding: 0px">
+                        <c:set var="endDate" value="${fn:substring(endDate, 0, 11)}"/>
+                        <p><c:out value="${endDate}"/></p>
+                    </td>
+                </c:forEach>
+            </tr>
+        </table>
+        <button type="submit" class="close1">닫기</button>
+    </div>
+</div>
+
+
 <script>
-
-
-
-    // 현재 날짜 가져오기
-    var today = new Date();
-
-    // 현재 날짜를 YYYY-MM-DD 형식으로 변환
-    var formattedDate = today.toISOString().substr(0, 10);
-
-    // date input의 min 속성에 현재 날짜 할당
-    document.getElementById("start-date").setAttribute("min", formattedDate);
-
-    // 시작일과 종료일 입력란 가져오기
-    var startDateInput = document.getElementById("start-date");
-    var endDateInput = document.getElementById("end-date");
-
-    // 시작일 변경 시 종료일의 최솟값 변경
-    startDateInput.addEventListener("change", function () {
-        endDateInput.min = startDateInput.value;
-    });
-
-    // 종료일 변경 시 시작일의 최댓값 변경
-    endDateInput.addEventListener("change", function () {
-        startDateInput.max = endDateInput.value;
-    });
 
     // 인원 선택이 1미만, 4초과인 경우
     function validateInput() {
@@ -564,11 +590,51 @@
     }
 
 
+    // 이미 예약된 날짜 고지 모달 ---------------------------------------------------
+
+    // 모달이 한번만 열리도록
+    var isModalOpen = true;
+
+    // start-date 입력란 클릭 시 모달 띄우기
+    document.getElementById('start-date').addEventListener('click', function () {
+        // 모달이 이미 열려있지 않은 경우에만 실행
+        if (isModalOpen) {
+            modal1.style.display = "block"; // 모달 보이기
+
+            // 모달이 닫힐 때 모달 열기 버튼의 이벤트 핸들러를 제거
+            modal.addEventListener('animationend', removeEventHandler);
+        }
+    });
+
+    // 모달 요소
+    var modal1 = document.getElementById("myModal1");
+
+    // 닫기 버튼
+    var closeBtn1 = document.getElementsByClassName("close1")[0];
+
+    // 닫기 버튼 클릭 시 이벤트 핸들러
+    closeBtn1.onclick = function () {
+        modal1.style.display = "none"; // 모달 숨기기
+        isModalOpen = false; // 모달이 닫혔음을 표시
+    }
+
+    // 사용자가 모달 외부를 클릭할 때, 모달 닫기
+    window.onclick = function (event) {
+        if (event.target == modal1) {
+            modal1.style.display = "none";
+            isModalOpen = false; // 모달이 닫혔음을 표시
+        }
+    }
+
+
+
+    // 결제 모달 동작 ----------------------------------------------------------------
+
     // 모달 열기 버튼
     var openModalBtn = document.getElementById("openModalBtn");
 
     // 모달 요소
-    var modal = document.getElementById("myModal");
+    var modal = document.getElementById("myModal2");
 
     // 닫기 버튼
     var closeBtn = document.getElementsByClassName("close")[0];
@@ -602,22 +668,80 @@
         var start_date = document.getElementById("start-date").value; // 입력된 값 가져오기
         var end_date = document.getElementById("end-date").value; // 입력된 값 가져오기
 
-        modalContent.innerHTML = "<p>사이트 : " + <c:out value="camp_no"/> +"</p>" +
-            "<p>예약자 : " + mem_name + "</p>" +
-            "<p>예약 인원 : " + res_people + "</p>" +
-            "<p>입실일 : " + start_date + "</p>" + // 모달에 입력된 값 표시
-            "<p>퇴실일 : " + end_date + "</p>" + // 모달에 입력된 값 표시
-            "<p>결제 금액 : " + res_price + "</p>" + // 모달에 입력된 값 표시
-            "<input type='hidden' name='mem_id' value='kkw'/>" + // 모달에 입력된 값 표시
-            "<input type='hidden' name='camp_no' value='" + camp_no + "'/>" + // 모달에 입력된 값 표시
-            "<input type='hidden' name='reserve_startDate' value='" + start_date + "'/> " + // 모달에 입력된 값 표시
-            "<input type='hidden' name='reserve_endDate' value='" + end_date + "'/>" + // 모달에 입력된 값 표시
-            "<input type='hidden' name='reserve_people' value='" + res_people + "'/>" + // 모달에 입력된 값 표시
-            "<input type='hidden' name='reserve_price' value='" + res_price + "'>"; // 모달에 입력된 값 표시
+        // 모달에 표시할 내용 초기화
+        var modalContent = "";
+
+        // order_quantity가 1 이상인 equip 객체만을 선택하여 모달에 표시
+        var selectedEquipments = [];
+        var orderQuantities = document.getElementsByName("order_quantity");
+        for (var i = 0; i < orderQuantities.length; i++) {
+            var quantity = parseInt(orderQuantities[i].value);
+            if (quantity >= 1) {
+                // 선택된 장비 정보를 배열에 추가
+                var equipment = {
+                    name: document.getElementsByName("equip_name")[i].value,
+                    number: document.getElementsByName("equip_no")[i].value,
+                    price: document.getElementsByName("order_price")[i].value,
+                    quantity: quantity
+                };
+                selectedEquipments.push(equipment);
+            }
+        }
+
+        // 선택된 장비가 있는 경우에만 모달에 표시
+        if (selectedEquipments.length > 0) {
+
+            // 예약 정보를 모달에 추가
+            modalContent += "<hr class='hr-custom'/><p><strong>예약자 : </strong> " + mem_name + "</p>";
+            modalContent += "<p><strong>예약 인원 : </strong> " + res_people + "</p>";
+            modalContent += "<p><strong>입실일 : </strong> " + start_date + "</p>";
+            modalContent += "<p><strong>퇴실일 : </strong> " + end_date + "</p>";
+            modalContent += "<p><strong>결제 금액 : </strong> " + res_price + "</p>";
+            modalContent += "<h2>♢장비 렌탈 정보♢</h2><hr class='hr-custom'/>";
+
+            // 선택된 장비 정보를 모달에 추가
+            selectedEquipments.forEach(function (equipment) {
+                modalContent += "<p><strong>상품명 : </strong> " + equipment.name + "</p>";
+                modalContent += "<p><strong>상품 번호 : </strong> " + equipment.number + "</p>";
+                modalContent += "<p><strong>수량 : </strong> " + equipment.quantity + "</p>";
+                modalContent += "<p><strong>가격 : </strong> " + equipment.price + "</p><br/><hr class='hr-custom2'/><br/>";
+            });
+
+        } else {
+            // 예약 정보를 모달에 추가
+            modalContent += "<hr class='hr-custom'/><p><strong>예약자 : </strong> " + mem_name + "</p>";
+            modalContent += "<p><strong>예약 인원 : </strong> " + res_people + "</p>";
+            modalContent += "<p><strong>입실일 : </strong> " + start_date + "</p>";
+            modalContent += "<p><strong>퇴실일 : </strong> " + end_date + "</p>";
+            modalContent += "<p><strong>결제 금액 : </strong> " + res_price + "</p><br/><br/>";
+
+            // 선택된 장비가 없는 경우에는 경고창 표시
+            modalContent += "<h2>♢장비 렌탈 정보♢</h2><hr class='hr-custom'/>";
+            modalContent += "<p>장비를 선택하지 않았습니다.</p><br/>";
+        }
+
+        // 사이트 예약 정보
+        modalContent += "<input type='hidden' name='mem_id' value='admin00'/>" +
+            "<input type='hidden' name='camp_no' value='" + camp_no + "'/>" +
+            "<input type='hidden' name='reserve_startDate' value='" + start_date + "'/> " +
+            "<input type='hidden' name='reserve_endDate' value='" + end_date + "'/>" +
+            "<input type='hidden' name='reserve_people' value='" + res_people + "'/>" +
+            "<input type='hidden' name='reserve_price' value='" + res_price + "'>";
 
 
-        modal.style.display = "block"; // 모달 보이기
+        // 모달 요소 가져오기
+        var modal = document.getElementById("myModal2");
+        // 모달 내용 요소 가져오기
+        var modalContentElement = document.getElementById("modalContent");
+        // 모달 내용 설정
+        modalContentElement.innerHTML = modalContent;
+
+        // 모달 보이기
+        modal.style.display = "block";
     }
+
+
+    // 날짜 선택 불가 -------------------------------------------------
 
     // alert 띄우기
     function showAlert() {
@@ -626,42 +750,28 @@
         document.querySelector("form").submit(); // 폼 제출
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // 이미 예약된 날짜 선택 불가 ( 수정 필요 )
-    var reservationDataElement = document.getElementById('reservationData');
+    // 현재 날짜 가져오기
+    var today = new Date();
 
-    // 이미 예약된 날짜 목록
-    var startDates = reservationDataElement.getAttribute('data-start-date'); // 예약된 시작 날짜를 서버에서 받아와서 배열에 저장
-    var endDates = reservationDataElement.getAttribute('data-end-date'); // 예약된 종료 날짜를 서버에서 받아와서 배열에 저장
+    // 현재 날짜를 YYYY-MM-DD 형식으로 변환
+    var formattedDate = today.toISOString().substr(0, 10);
 
-    // 문자열로 변환된 배열을 다시 배열로 파싱
-    var start_Dates = JSON.parse(startDates);
-    var end_Dates = JSON.parse(endDates);
+    // date input의 min 속성에 현재 날짜 할당
+    document.getElementById("start-date").setAttribute("min", formattedDate);
 
-    // 시작일과 종료일 input 요소 가져오기
+    // 시작일과 종료일 입력란 가져오기
     var startDateInput = document.getElementById("start-date");
     var endDateInput = document.getElementById("end-date");
 
-    // 페이지 로드 시 실행되는 함수
-    window.onload = function () {
-        // 예약된 날짜를 비활성화
-        disableReservedDates();
-    };
+    // 시작일 변경 시 종료일의 최솟값 변경
+    startDateInput.addEventListener("change", function () {
+        endDateInput.min = startDateInput.value;
+    });
 
-    // 예약된 날짜를 비활성화하는 함수
-    function disableReservedDates() {
-        // 시작일과 종료일 각각의 날짜 선택 input 태그에 대해 처리
-        [startDateInput, endDateInput].forEach(function (input) {
-            // 예약된 날짜 목록을 순회하며 각 날짜를 비활성화
-            start_Dates.forEach(function (startDate, index) {
-                // 종료일과 시작일이 예약된 범위에 있는지 확인
-                if (startDate <= endDateInput.value && endDateInput.value <= end_Dates[index]) {
-                    input.disabled = true;
-                }
-            });
-        });
-    }
-
+    // 종료일 변경 시 시작일의 최댓값 변경
+    endDateInput.addEventListener("change", function () {
+        startDateInput.max = endDateInput.value;
+    });
 
 </script>
 <!-- End #main -->
