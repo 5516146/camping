@@ -29,8 +29,7 @@
 	<bean id="bcryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> <!-- 패스워드 보호 -->
 
-	<bean id="customUserAuthenticationProvider"
-		class="com.camping.security.CustomAuthenticationProvider"></bean>
+	<bean id="customUserAuthenticationProvider" class="com.camping.security.CustomAuthenticationProvider"></bean>
 
 	<bean id="customUserDetailsService"
 		class="com.camping.security.CustomUserDetailsService"></bean>

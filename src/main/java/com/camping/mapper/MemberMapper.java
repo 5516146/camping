@@ -40,6 +40,8 @@ public interface MemberMapper {
 
 	public MemberVO checkEmail(@Param("mem_id") String mem_id, @Param("mem_email") String mem_email);
 
+	public MemberVO getTemporaryPasswordInformation(@Param("mem_name") String mem_name, @Param("mem_email") String mem_email, @Param("mem_tel") String mem_tel);
+
 	
 
 }

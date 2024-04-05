@@ -9,7 +9,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +31,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,6 +42,7 @@ import com.camping.service.MemberService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+//import oracle.jdbc.proxy.annotation.Post;
 
 @RequestMapping("/member/*")
 @Controller
@@ -52,12 +58,9 @@ public class MemberController {
 	@Setter(onMethod_ = @Autowired)
 	private BCryptPasswordEncoder pwEncoder;
 
-	private String username; //input 태그의 아이디
-	
-	private int authNumber;
-	
 	//00. 접근 제한 페이지
-	@RequestMapping(value = "/accessError") // /access를 처리하도록 지정, accessError.jsp를 찾아감
+	@PreAuthorize("permitAll")
+	@GetMapping("/accessError") // /access를 처리하도록 지정, accessError.jsp를 찾아감
 	public void accessDenied(Authentication auth, Model model) { // Authentication은 필요한 경우에 사용자의 정보를 확인할 수 있게 함
 
 		log.info("관리자 전용입니다!!!! : " + auth);
@@ -74,7 +77,7 @@ public class MemberController {
 	}
 	// --------------마이페이지---------------
 	//02. 마이페이지 메인
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/myInfo")
 	public void myPageInfo(HttpServletRequest request) {
 		log.info("메인페이지에서 마이페이지로 넘어감");
@@ -82,7 +85,7 @@ public class MemberController {
 	}
 	
 	//03. 내 계정 페이지로 이동
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/myAccount")
 	public void myAccountGet(@AuthenticationPrincipal ModelMap modelMap, Principal principal) {
 		log.info("마이페이지에서 내계정 페이지로 넘어감");
@@ -100,7 +103,7 @@ public class MemberController {
 //		log.info("회원 정보 수정 전 본인 확인");
 //	}
 
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/updateForm")
 	public void updateInfoForm(@AuthenticationPrincipal ModelMap modelMap, Principal principal) {
 		log.info("회원 정보 수정하겠습니다");
@@ -110,7 +113,7 @@ public class MemberController {
 		modelMap.addAttribute("member", member);
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/updateForm")
 	public String modifyInfo(@ModelAttribute("member") MemberVO vo, Model model, HttpServletRequest request) {
 		log.info("회원 정보 수정 버튼 눌렀습니다. ");
@@ -168,6 +171,7 @@ public class MemberController {
 	
 	// --------------회원탈퇴---------------
 	// 회원 탈퇴를 위한 비밀번호 확인 페이지로 이동
+	@PreAuthorize("isAuthenticated()")
     @GetMapping("/member/checkPassword")
     public void checkPassword(@AuthenticationPrincipal Model model, Principal principal) {
     	log.info("회원탈퇴를 위해 비밀번호 확인 페이지로 넘어갑니다.");
@@ -175,49 +179,60 @@ public class MemberController {
     	MemberVO member = memberService.getMember(username);
     	model.addAttribute("member", member);
     }
+    
 	// 회원 탈퇴를 위한 비밀번호 확인 + 탈퇴 메서드
+	@PreAuthorize("isAuthenticated()")
     @PostMapping("/checkPassword")
-    public void checkPassword(@AuthenticationPrincipal ModelMap model, Principal principal, HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, @ModelAttribute("member") MemberVO vo) {
+    public void checkPassword(@ModelAttribute("member") MemberVO vo, @AuthenticationPrincipal ModelMap model, Principal principal, HttpServletRequest request, HttpServletResponse response) {
     	String username = principal.getName();
-    	String inputPassword = request.getParameter("password");
-        log.info("비밀번호 확인 칸 입력값 확인: "+inputPassword);
+    	String rawPw = request.getParameter("password");
+        log.info("비밀번호 확인 칸 입력값 확인: "+rawPw);
+        
+        String encodePw = "";
+        
+        if (rawPw != null) {
+			encodePw = pwEncoder.encode(rawPw); //비밀번호 인코딩
+			
+			MemberVO currentPassword = memberService.getMember(username);
+			log.info("currentPassword.getMem_pw() 확인: "+currentPassword.getMem_pw());
+			model.addAttribute("currentPassword", currentPassword.getMem_pw());
+			log.info("비밀번호 확인 칸 입력값 확인: "+encodePw);
+	        // 입력된 비밀번호와 현재 사용자의 비밀번호 비교
+	        boolean passwordMatches = matchPasswords(encodePw, currentPassword.getMem_pw());
+	        // 응답 생성
+//	        request.setAttribute("success", passwordMatches);
+	        boolean resultAuth = false;
+	        boolean resultMember = false;
+	        if(passwordMatches) { //비교가 true일 때
+	        	try {
+	        		resultAuth = service.deleteAuth(username);
+	    			resultMember = service.deleteMember(username);
+	            	 			
+	    			if(resultAuth && resultMember) {
+	    				response.sendRedirect("redirect:/customLogout");
+	    			}
+	    			
+	    		} catch (Exception e) {
+	    		}
+				model.addAttribute("result", "success");
+				log.info("회원탈퇴가 진행됩니다.");
+			} else {
+				log.error("입력한 정보가 올바르지 않습니다.");
+				model.addAttribute("errorMsg", "error");
+			}
+	    } else {
+	    	model.addAttribute("error", "오류코드 발생 - 처음으로 돌아가 로그인을 시도하여 주십시오.");
+	    }
         // 현재 사용자의 인증 정보 가져오기
-		MemberVO currentPassword = memberService.getMember(username);
-		log.info("currentPassword.getMem_pw() 확인: "+currentPassword.getMem_pw());
-		model.addAttribute("currentPassword", currentPassword.getMem_pw());
-
 		
-        // 입력된 비밀번호와 현재 사용자의 비밀번호 비교
-        boolean passwordMatches = matchPasswords(inputPassword, currentPassword.getMem_pw());
-        // 응답 생성
-//        request.setAttribute("success", passwordMatches);
-        boolean resultAuth = false;
-        boolean resultMember = false;
-        if(passwordMatches) { //비교가 true일 때
-        	try {
-        		resultAuth = service.deleteAuth(username);
-    			resultMember = service.deleteMember(username);
-            	 			
-    			if(resultAuth && resultMember) {
-    				response.sendRedirect("redirect:/sample/all");
-    			}
-    			
-    		} catch (Exception e) {
-    		}
-			model.addAttribute("result", "success");
-			log.info("입력한 정보가 올바릅니다.");
-		} else {
-			log.error("입력한 정보가 올바르지 않습니다.");
-			rttr.addFlashAttribute("result", "error");
-		}
 		
 		log.info("비밀번호 확인");
     }
 
     // 비밀번호 일치 여부를 확인하는 메서드
-    private boolean matchPasswords(String inputPassword, String currentPassword) {
+    private boolean matchPasswords(String encodePw, String currentPassword) {
         // 비밀번호 일치 여부를 적절한 방식으로 확인하여 반환
-        return pwEncoder.matches(inputPassword, currentPassword);
+        return pwEncoder.matches(encodePw, currentPassword);
     }
 
     // 다른 회원 관련 메서드들
@@ -272,71 +287,24 @@ public class MemberController {
 		return "redirect:/member/customLogin";
 	}
 
-	// 아이디 중복 체크
-//	@ResponseBody //응답 데이터 직접 반환
-//	@PostMapping("/idCheck")
-//	public Map idCheck(Principal principal) {
-//		
-//		String username = principal.getName();
-//		MemberVO vo = memberService.getMember(username);
-//		
-//		boolean flag = (vo == null);
-//		
-//		Map map = new HashMap();
-//		map.put("flag",  flag);
-//		
-//		return map;
-//	}
 	@GetMapping("/includes/header")
 	public void header() {
 		log.info("헤더");
 	}
 	
-	//아이디 중복 체크
-//	@ResponseBody
-//	@PostMapping("/idCheck")
-//	public String idCheck(@RequestParam("mem_id") String mem_id) {
-//	    log.info("아이디 중복 체크중");
-//
-//	    try {
-//	        MemberVO foundId = memberService.getIdById(mem_id);
-//	        log.info("아이디 잘 찾는지 확인!!!!!: "+ foundId);
-//	        if (foundId != null) { // 아이디가 존재하는 경우
-//	            return "duplicate"; // 중복되는 아이디일 경우 "duplicate" 반환
-//	        } else { // 아이디가 존재하지 않는 경우
-//	            return "available"; // 사용 가능한 아이디일 경우 "available" 반환
-//	        }
-//	    } catch (Exception e) {
-//	        // 예외 처리
-//	        log.error("아이디를 찾는 중 오류 발생: " + e.getMessage());
-//	        return "error";
-//	    }
-//	}
-	
-	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> checkId(String mem_id) throws Exception {
+	//아이디 중복체크
+	@PreAuthorize("isAnonymous()")
+    @GetMapping("/idCheck")
+    public @ResponseBody String checkId(String mem_id) {
 		log.info("idCheck: " + mem_id);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		int result = memberService.checkId(mem_id);
+		log.info("result~~~~~~~~~~~~!!!!!!!!!!: " + result);
 		
-		boolean flag = memberService.checkId(mem_id);
+		return String.valueOf(result);
 		
-		if (flag) {
-			map.put("flag", flag);
-		}
-		
-//		boolean result = memberService.checkId(mem_id);
-//        
-//		if(result) {
-//			return flag;
-//		}
-		
-		
-		
-        return map;
     }
-
+	
 	// 인증문자 발송
 //	@RequestMapping(value = "sendMessage", method = { RequestMethod.GET })
 //	public @ResponseBody void send(HttpServletRequest request) {
@@ -356,7 +324,7 @@ public class MemberController {
 //		return authNumber;
 //	}
 
-	
+ // --------------아이디/비밀번호 찾기 페이지로 이동---------------
 	@GetMapping("/findAccount")
 	public void findAcc() {
 		log.info("아이디/비밀번호 찾기 페이지로 이동");
@@ -395,74 +363,61 @@ public class MemberController {
 	    
 		
 	}
-	
 	@GetMapping("/findIdResult")
 	public void findIdResult() {
 		log.info("아이디찾기 성공");
 	}
 	
-	@GetMapping("/main")
+	@GetMapping("/")
 	public void mainPage() {
+		log.info("메인페이지로 이동");
 	}
 	
 	//휴대폰으로 비밀번호 찾기
 	@GetMapping("/generateOTP")
 	public void verificationForPhone() {
-		
+		log.info("휴대폰으로 일회용 비밀번호 전송");
 	}
-	//이메일로 비밀번호 찾기
-	@GetMapping("/sendPasswordResetEmail")
-	public void verificationForEmail() {
+	@PostMapping("/pw_auth.me")
+	public String pw_authme(@RequestParam String myNameForOTP, @RequestParam String myEmailForOTP, @RequestParam String myTelForOTP, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal Model model, RedirectAttributes rttr){
+		String mem_name = request.getParameter("myNameForOTP");
+		String mem_email = request.getParameter("myEmailForOTP");
+		String mem_tel = request.getParameter("myTelForOTP");
 		
+		try {
+            // 사용자의 이름과 전화번호를 기반으로 아이디 조회(원래 쓰던 메서드 사용)
+            MemberVO foundInfo = memberService.getTemporaryPasswordInformation(mem_name, mem_email, mem_tel);
+            log.info("아이디 잘 찾는지 확인!!!!!: "+ foundInfo);
+            if (foundInfo != null) { // 아이디가 존재하는 경우
+            	String newPwd = "123456789"; //임시 비밀번호 랜덤 생성
+            	
+            	foundInfo.setMem_pw(newPwd); //데이터베이스에 set
+            	log.info("foundInfo.getMem_pw()" + foundInfo.getMem_pw());
+            	
+            	String rawPw = ""; //인코딩 전 비번
+        		String encodePw = ""; //인코딩 후 비번
+        		
+        		rawPw = foundInfo.getMem_pw(); //비밀번호 데이터 얻음
+        		encodePw = pwEncoder.encode(rawPw); //비밀번호 인코딩
+        		foundInfo.setMem_pw(encodePw); //인코딩 된 비번을 다시 membervo 객체에 넣음
+            	
+            	memberService.updateForm(foundInfo);
+            	model.addAttribute("newPwd", newPwd);
+            	
+                // 아이디를 찾은 페이지로 리다이렉트
+                return "/member/OTPResult";
+            } else { // 아이디가 존재하지 않는 경우
+                // 아이디를 찾지 못한 경우 예외 처리
+                model.addAttribute("error", "일치하는 정보를 찾을 수 없습니다.");
+                return "/member/generateOTP";
+            }
+            
+        } catch (Exception e) {
+            // 예외 처리
+            log.error("아이디를 찾는 중 오류 발생: " + e.getMessage());
+            model.addAttribute("error", "아이디를 찾는 중 오류가 발생했습니다.");
+            return "/member/findIdResult";
+        }
 	}
 	
-//	@RequestMapping(value = "/pw_auth.me")
-//	public ModelAndView pw_auth(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) throws IOException {
-//		String email = (String)request.getParameter("email");
-//		String name = (String)request.getParameter("name");
-//		
-//		MemberVO vo = memberService.checkEmail(name, email);
-//			
-//		if(vo != null) {
-//		Random r = new Random();
-//		int num = r.nextInt(999999); // 랜덤난수설정
-//		
-//		if (vo.getMem_name().equals(name)) {
-//			modelMap.addAttribute("email", vo.getMem_email());
-//
-//			String setfrom = "ivedot@naver.com"; // naver 
-//			String tomail = email; //받는사람
-//			String title = "[별빛누리캠핑장] 비밀번호변경 인증 이메일 입니다"; 
-//			String content = System.getProperty("line.separator") + "안녕하세요 회원님" + System.getProperty("line.separator")
-//					+ "별빛누리캠핑장 비밀번호찾기(변경) 인증번호는 " + num + " 입니다." + System.getProperty("line.separator"); // 
-//
-//			try {
-//				MimeMessage message = mailSender.createMimeMessage();
-//				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
-//
-//				messageHelper.setFrom(setfrom); 
-//				messageHelper.setTo(tomail); 
-//				messageHelper.setSubject(title);
-//				messageHelper.setText(content); 
-//
-//				mailSender.send(message);
-//			} catch (Exception e) {
-//				System.out.println(e.getMessage());
-//			}
-//
-//			ModelAndView mv = new ModelAndView();
-//			mv.setViewName("YM/pw_auth");
-//			mv.addObject("num", num);
-//			return mv;
-//		}else {
-//			ModelAndView mv = new ModelAndView();
-//			mv.setViewName("YM/pw_find");
-//			return mv;
-//		}
-//		}else {
-//			ModelAndView mv = new ModelAndView();
-//			mv.setViewName("YM/pw_find");
-//			return mv;
-//		}
-//}
 }

@@ -238,25 +238,8 @@
         cursor: pointer;
     }
 
-    .tr-equip {
-        border-bottom: 1px solid #95d3ff;
-        height: 200px;
-    }
-
-    .img-equip {
-        height: 200px;
-    }
-
-    .td-equip {
-        height: 200px;
-    }
-
     .hr-custom {
         width: 70%;
-    }
-
-    .hr-custom2 {
-        width: 10%;
     }
 
 
@@ -270,8 +253,9 @@
     </div>
 </div>
 
-<%-- 사이트 번호 site_no에 저장 --%>
+<%-- 사이트 번호 site에 저장 --%>
 <c:set var="site" value="${camp.camp_no}"/>
+<%-- site를 맨 앞글자만 따와 site_no에 저장--%>
 <c:set var="site_no" value="${fn:substring(site, 0, 1)}"/>
 
 
@@ -282,7 +266,7 @@
             <div class="container">
                 <div class="section-title">
                     <h2>정보 입력</h2>
-                    <h3><c:out value="${site}"/></h3>
+                    <h3><c:out value="${site}"/></h3> <!-- 사이트 이름 전체 표시 -->
                 </div>
                 <hr/>
                 <br/>
@@ -293,7 +277,7 @@
                 <div class="row content">
                     <tr>
                         <td>
-                            <!-- ======= Hero Section ======= -->
+                            <!-- ======= 이미지 슬라이드 ======= -->
                             <section id="hero-camp-a">
                                 <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade"
                                      data-bs-ride="carousel">
@@ -301,6 +285,7 @@
                                     <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
                                     <div class="carousel-inner" role="listbox">
+                                        <%-- site_no에 따라 이미지 링크 변경 --%>
                                         <c:choose>
                                             <c:when test="${site_no eq 'A'}">
                                                 <!-- Slide 1 -->
@@ -395,6 +380,8 @@
                                             </c:when>
                                         </c:choose>
                                     </div>
+
+                                    <%-- 이미지 슬라이드 전환 --%>
                                     <a class="carousel-control-prev" href="#heroCarousel" role="button"
                                        data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon bi bi-chevron-left"
@@ -408,9 +395,11 @@
                                 </div>
                             </section><!-- End Hero -->
                         </td>
+
+                        <%-- 예약 정보 입력란 --%>
                         <td>
                             <ol style="list-style: none;">
-                                <li class="li-padding">
+                                <li class="li-padding"> <!-- 입실일, 퇴실일 지정 -->
                                     <span>
                                         <i class="ri-check-double-line"></i>
                                         <input type="date" id="start-date" name="reserve_startDate">
@@ -418,90 +407,98 @@
                                         <input type="date" id="end-date" name="reserve_endDate">
                                     </span>
                                 </li>
-                                <li class="li-padding">
+                                <li class="li-padding"> <!-- 예약자명 시큐리티에서 가져옴 -->
                                     <i class="ri-check-double-line"></i>
                                     <strong> 예약자명 : </strong>
-                                    <input id="inputValue_mem_name" value="가나다" readonly/>
+                                    <input id="inputValue_mem_name" value="<c:out value='${mem_name}'/> " readonly/>
                                 </li>
-                                <li class="li-padding">
+                                <li class="li-padding"> <!-- 입실 인원 설정 -->
                                     <i class="ri-check-double-line"></i>
                                     <strong> 인원 : </strong>
                                     <input type="number" id="inputValue_res_people" name="reserve_people" min="1"
                                            max="4" value="2"> 명<br/>
                                     <span> 인원은 1~4명으로 입력 가능합니다.</span>
                                 </li>
-                                <li class="li-padding">
+                                <li class="li-padding"> <!-- 사이트 가격 DB에서 가져옴 -->
                                     <i class="ri-check-double-line"></i>
                                     <strong> 가격 : </strong>
-                                    <input name="reserve_price" id="inputValue_res_price"
-                                           value="<c:out value='${camp.camp_price}'/>" readonly/> 원
+                                    <!-- JS에서 원가를 처리한 값을 받아 표시 -->
+                                    <input name="reserve_price" id="inputValue_res_price" readonly/> 원
+                                    <!-- hidden 타입으로 DB에서 원가를 불러와 저장 -->
+                                    <input type="hidden" id="inputValue_res_prices" value="<c:out value='${camp.camp_price}'/>">
                                 </li>
                             </ol>
-                            <input type="hidden" id="inputValue_mem_id" name="mem_id" value="jjj">
-                            <!-- 리다이렉션 오류로 임시 처리 -->
                             <input type="hidden" id="inputValue_camp_no" name="camp_no" value="${site}">
+                            <button type="reset">취소</button>
+                            <button type="submit" id="openModalBtn" onclick="validateInput()">결제</button>
                         </td>
                     </tr>
                 </div>
             </table>
             <hr/>
-        </section><!-- End My & Family Section -->
-        <section>
-            <div class="container">
-                <div class="section-title">
-                    <h2>장비 렌탈</h2>
-                </div>
-                <hr/>
-                <br/>
-                <br/>
-            </div>
 
-            <table class="table-equip">
-                <c:forEach items="${option}" var="option">
-                    <tr class="tr-equip">
-                        <td class="td-equip">
-                            <img src="#" class="img-equip">
-                        </td>
-                        <td class="td-equip">
-                            <ol style="list-style: none;">
-                                <li class="li-padding">
-                                    <i class="ri-check-double-line"></i><strong>상품명 : </strong><c:out
-                                        value="${option.option_name}"/>
-                                </li>
-                                <li class="li-padding">
-                                    <i class="ri-check-double-line"></i><strong>상품 번호 : </strong><c:out
-                                        value="${option.option_no}"/>
-                                </li>
-                                <li class="li-padding">
-                                    <i class="ri-check-double-line"></i><strong>상품 재고 : </strong><c:out
-                                        value="${option.option_quantity}"/>
-                                </li>
-                                <li class="li-padding">
-                                    <i class="ri-check-double-line"></i>
-                                    <strong>수량 : </strong>
-                                    <input type="number" name="rental_quantity" min="0" max="2" value="0"> 개<br/>
-                                    <span> 수량은 1~2개으로 입력 가능합니다.</span>
-                                </li>
-                                <li class="li-padding">
-                                    <i class="ri-check-double-line"></i>
-                                    <STRONG> 가격 : </STRONG><c:out value="${option.option_price}"/>
-                                </li>
-                            </ol>
-                        </td>
-                    </tr>
-                    <input type="hidden" name="equip_name" value="<c:out value='${equip.equip_name}'/>"/>
-                    <input type="hidden" name="equip_no" value="<c:out value='${equip.equip_no}'/>"/>
-                    <input type="hidden" name="order_price" value="<c:out value='${equip.equip_price}'/>"/>
-                </c:forEach>
-            </table>
-            <br/>
-            <br/>
-            <br/>
-            <div align="center">
-                <button type="reset">취소</button>
-                <button type="submit" id="openModalBtn" onclick="validateInput()">결제</button>
-            </div>
-        </section>
+            <%-- 캠핑 장비 추가 섹션 (추후 업데이트) --%>
+
+        </section><!-- End My & Family Section -->
+        <%--        <section>--%>
+        <%--            <div class="container">--%>
+        <%--                <div class="section-title">--%>
+        <%--                    <h2>장비 렌탈</h2>--%>
+        <%--                </div>--%>
+        <%--                <hr/>--%>
+        <%--                <br/>--%>
+        <%--                <br/>--%>
+        <%--            </div>--%>
+
+        <%--            <table class="table-equip">--%>
+        <%--                <c:forEach items="${option}" var="option">--%>
+        <%--                    <tr class="tr-equip">--%>
+        <%--                        <td class="td-equip">--%>
+        <%--                            <img src="#" class="img-equip">--%>
+        <%--                        </td>--%>
+        <%--                        <td class="td-equip">--%>
+        <%--                            <ol style="list-style: none;">--%>
+        <%--                                <li class="li-padding">--%>
+        <%--                                    <i class="ri-check-double-line"></i><strong>상품명 : </strong><c:out--%>
+        <%--                                        value="${option.option_name}"/>--%>
+        <%--                                </li>--%>
+        <%--                                <li class="li-padding">--%>
+        <%--                                    <i class="ri-check-double-line"></i><strong>상품 번호 : </strong><c:out--%>
+        <%--                                        value="${option.option_no}"/>--%>
+        <%--                                </li>--%>
+        <%--                                <li class="li-padding">--%>
+        <%--                                    <i class="ri-check-double-line"></i><strong>상품 재고 : </strong><c:out--%>
+        <%--                                        value="${option.option_quantity}"/>--%>
+        <%--                                </li>--%>
+        <%--                                <li class="li-padding">--%>
+        <%--                                    <i class="ri-check-double-line"></i>--%>
+        <%--                                    <strong>수량 : </strong>--%>
+        <%--                                    <input type="number" name="rental_quantity" min="0" max="2" value="0"> 개<br/>--%>
+        <%--                                    <span> 수량은 1~2개으로 입력 가능합니다.</span>--%>
+        <%--                                </li>--%>
+        <%--                                <li class="li-padding">--%>
+        <%--                                    <i class="ri-check-double-line"></i>--%>
+        <%--                                    <STRONG> 가격 : </STRONG><c:out value="${option.option_price}"/>--%>
+        <%--                                </li>--%>
+        <%--                            </ol>--%>
+        <%--                        </td>--%>
+        <%--                    </tr>--%>
+        <%--                    <input type="hidden" name="equip_name" value="<c:out value='${equip.equip_name}'/>"/>--%>
+        <%--                    <input type="hidden" name="equip_no" value="<c:out value='${equip.equip_no}'/>"/>--%>
+        <%--                    <input type="hidden" name="order_price" value="<c:out value='${equip.equip_price}'/>"/>--%>
+        <%--                </c:forEach>--%>
+        <%--            </table>--%>
+        <%--            <br/>--%>
+        <%--            <br/>--%>
+        <%--            <br/>--%>
+        <%--            <div align="center">--%>
+        <%--                <button type="reset">취소</button>--%>
+        <%--                <button type="submit" id="openModalBtn" onclick="validateInput()">결제</button>--%>
+        <%--            </div>--%>
+        <%--        </section>--%>
+
+        <!-- 장비 추가 섹션 -->
+
     </form>
 </main>
 
@@ -509,13 +506,12 @@
 <!-- 결제 모달 -->
 <div id="myModal2" class="modal">
     <div class="modal-content" align="center">
-        <span class="close">&times;</span>
-        <h1>결제 정보</h1>
-        <hr/>
-        <br/><br/>
+        <span class="close">&times;</span> <!-- 닫기 버튼 -->
         <h2>♢사이트 예약 정보♢</h2>
-        <form action="/reserve/register" method="post">
+        <form action="/reserve/register" method="post"> <%-- 버튼을 눌렀을 때 넘어가는 주소와 방식 --%>
             <p id="modalContent"></p>
+
+            <%-- 실제 DB에 저장하지 않음 --%>
             <p align="center">결제 수단 :
                 <select>
                     <option value="shinhan">신한카드</option>
@@ -524,7 +520,9 @@
                     <option value="toss">토스뱅크</option>
                 </select>
             </p>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <%-- 실제 DB에 저장하지 않음 --%>
+
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> <%-- 보안 토큰 --%>
             <button type="submit" onclick="showAlert()">확인</button>
         </form>
     </div>
@@ -534,22 +532,31 @@
 <!-- 이미 예약된 날짜 모달 -->
 <div id="myModal1" class="modal1">
     <div class="modal-content" align="center">
-        <span class="close1">&times;</span>
+        <span class="close1">&times;</span> <%-- 닫기 버튼 --%>
         <h2>♢예약된 날짜 정보♢</h2>
         <br/>
         <hr/>
         <br/>
-        <table style="width: 80%; border: 1px solid black">
+        <table style="width: 80%;">
             <tr>
-                <th style="width: 15px; border: 1px solid black">
+                <th style="width: 15px;">
                     <strong>입실일</strong>
                 </th>
-                <c:forEach items="${startDate}" var="startDate">
-                    <td style="padding: 0px">
-                        <c:set var="startDate" value="${fn:substring(startDate, 0, 11)}"/>
-                        <p><c:out value="${startDate}"/></p>
-                    </td>
-                </c:forEach>
+
+                <%-- DB에서 배열로 가져온 값을 모두 출력 --%>
+                <c:choose>
+                    <c:when test="${not empty startDate}"> <%-- 입실일 값이 null이 아니면 --%>
+                        <c:forEach items="${startDate}" var="startDate"> <%-- 값을 모두 출력 --%>
+                            <td style="padding: 0px">
+                                <c:set var="startDate" value="${fn:substring(startDate, 0, 11)}"/> <%-- 날짜 값을 시간을 빼고 저장 --%>
+                                <p><c:out value="${startDate}"/></p> <%-- 시간이 없는 날짜 출력 --%>
+                            </td>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise> <%-- DB에서 가져온 값이 없으면 --%>
+                        <p>예약된 날짜가 없습니다.</p>
+                    </c:otherwise>
+                </c:choose>
             </tr>
             <tr>
                 <th></th>
@@ -561,31 +568,56 @@
                 <th>
                     <strong>퇴실일</strong>
                 </th>
-                <c:forEach items="${endDate}" var="endDate">
+                <c:forEach items="${endDate}" var="endDate"> <%-- 퇴실일을 모두 출력 --%>
                     <td style="padding: 0px">
                         <c:set var="endDate" value="${fn:substring(endDate, 0, 11)}"/>
-                        <p><c:out value="${endDate}"/></p>
+                        <p><c:out value="${endDate}"/></p> <%-- 날짜를 시간을 제외하고 출력 --%>
                     </td>
                 </c:forEach>
             </tr>
         </table>
-        <button type="submit" class="close1">닫기</button>
+<%--        <button type="submit" class="close1">닫기</button>--%>
     </div>
 </div>
 
 
 <script>
+    // start-date와 end-date 입력 필드의 값을 가져와서 날짜 형식으로 변환하는 함수
+    function calculatePrice() {
+        var startDate = new Date(document.getElementById("start-date").value);
+        var endDate = new Date(document.getElementById("end-date").value);
 
-    // 인원 선택이 1미만, 4초과인 경우
+        // 날짜 차이 계산
+        var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        // 가격 계산 예시 (가격 계산 로직을 여기에 추가)
+        var basePrice = parseFloat(document.getElementById("inputValue_res_prices").value); // 기본 가격
+        var totalPrice = basePrice * diffDays; // 총 가격 = 기본 가격 * 일수
+
+        // 계산된 가격을 화면에 표시
+        document.getElementById("inputValue_res_price").value = totalPrice.toFixed(0); // 소수점 둘째 자리까지 표시
+    }
+
+    // start-date 또는 end-date 입력 필드의 값이 변경될 때마다 가격을 계산하는 함수를 호출
+    document.getElementById("start-date").addEventListener("change", calculatePrice);
+    document.getElementById("end-date").addEventListener("change", calculatePrice);
+
+
+
+    // 입력값이 없을 경우
     function validateInput() {
         // quantity 이름의 값을 가져옴
         var input = document.getElementById("inputValue_res_people").value;
+        var inputStart = document.getElementById("start-date").value; // 입력 필드의 값 가져오기
+        var inputEnd = document.getElementById("start-date").value; // 입력 필드의 값 가져오기
 
         if (input < 1 || input > 4) {
             alert("입력값은 1에서 4 사이어야 합니다.");
-        } else {
-            // 유효한 경우에는 여기에 원하는 작업을 수행합니다.
-            alert("입력값이 유효합니다.");
+        } else if (inputStart === "") { // 값이 비어 있는 경우
+            alert("입실일을 선택해주세요."); // 알림 창 표시
+        } else if (inputEnd === "") {
+            alert("퇴실일을 선택해주세요.")
         }
     }
 
@@ -601,8 +633,6 @@
         if (isModalOpen) {
             modal1.style.display = "block"; // 모달 보이기
 
-            // 모달이 닫힐 때 모달 열기 버튼의 이벤트 핸들러를 제거
-            modal.addEventListener('animationend', removeEventHandler);
         }
     });
 
@@ -625,7 +655,6 @@
             isModalOpen = false; // 모달이 닫혔음을 표시
         }
     }
-
 
 
     // 결제 모달 동작 ----------------------------------------------------------------
@@ -661,7 +690,6 @@
         event.preventDefault(); // 기본 동작 방지
 
         var camp_no = document.getElementById("inputValue_camp_no").value; // 입력된 값 가져오기
-        var mem_id = document.getElementById("inputValue_mem_id").value; // 입력된 값 가져오기
         var res_people = document.getElementById("inputValue_res_people").value; // 입력된 값 가져오기
         var mem_name = document.getElementById("inputValue_mem_name").value; // 입력된 값 가져오기
         var res_price = document.getElementById("inputValue_res_price").value; // 입력된 값 가져오기
@@ -671,54 +699,13 @@
         // 모달에 표시할 내용 초기화
         var modalContent = "";
 
-        // order_quantity가 1 이상인 equip 객체만을 선택하여 모달에 표시
-        var selectedEquipments = [];
-        var orderQuantities = document.getElementsByName("order_quantity");
-        for (var i = 0; i < orderQuantities.length; i++) {
-            var quantity = parseInt(orderQuantities[i].value);
-            if (quantity >= 1) {
-                // 선택된 장비 정보를 배열에 추가
-                var equipment = {
-                    name: document.getElementsByName("equip_name")[i].value,
-                    number: document.getElementsByName("equip_no")[i].value,
-                    price: document.getElementsByName("order_price")[i].value,
-                    quantity: quantity
-                };
-                selectedEquipments.push(equipment);
-            }
-        }
 
-        // 선택된 장비가 있는 경우에만 모달에 표시
-        if (selectedEquipments.length > 0) {
-
-            // 예약 정보를 모달에 추가
-            modalContent += "<hr class='hr-custom'/><p><strong>예약자 : </strong> " + mem_name + "</p>";
-            modalContent += "<p><strong>예약 인원 : </strong> " + res_people + "</p>";
-            modalContent += "<p><strong>입실일 : </strong> " + start_date + "</p>";
-            modalContent += "<p><strong>퇴실일 : </strong> " + end_date + "</p>";
-            modalContent += "<p><strong>결제 금액 : </strong> " + res_price + "</p>";
-            modalContent += "<h2>♢장비 렌탈 정보♢</h2><hr class='hr-custom'/>";
-
-            // 선택된 장비 정보를 모달에 추가
-            selectedEquipments.forEach(function (equipment) {
-                modalContent += "<p><strong>상품명 : </strong> " + equipment.name + "</p>";
-                modalContent += "<p><strong>상품 번호 : </strong> " + equipment.number + "</p>";
-                modalContent += "<p><strong>수량 : </strong> " + equipment.quantity + "</p>";
-                modalContent += "<p><strong>가격 : </strong> " + equipment.price + "</p><br/><hr class='hr-custom2'/><br/>";
-            });
-
-        } else {
-            // 예약 정보를 모달에 추가
-            modalContent += "<hr class='hr-custom'/><p><strong>예약자 : </strong> " + mem_name + "</p>";
-            modalContent += "<p><strong>예약 인원 : </strong> " + res_people + "</p>";
-            modalContent += "<p><strong>입실일 : </strong> " + start_date + "</p>";
-            modalContent += "<p><strong>퇴실일 : </strong> " + end_date + "</p>";
-            modalContent += "<p><strong>결제 금액 : </strong> " + res_price + "</p><br/><br/>";
-
-            // 선택된 장비가 없는 경우에는 경고창 표시
-            modalContent += "<h2>♢장비 렌탈 정보♢</h2><hr class='hr-custom'/>";
-            modalContent += "<p>장비를 선택하지 않았습니다.</p><br/>";
-        }
+        // 예약 정보를 모달에 추가
+        modalContent += "<hr class='hr-custom'/><p><strong>예약자 : </strong> " + mem_name + "</p>";
+        modalContent += "<p><strong>예약 인원 : </strong> " + res_people + "</p>";
+        modalContent += "<p><strong>입실일 : </strong> " + start_date + "</p>";
+        modalContent += "<p><strong>퇴실일 : </strong> " + end_date + "</p>";
+        modalContent += "<p><strong>결제 금액 : </strong> " + res_price + "</p>";
 
         // 사이트 예약 정보
         modalContent += "<input type='hidden' name='mem_id' value='admin00'/>" +

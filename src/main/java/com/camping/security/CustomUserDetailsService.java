@@ -74,10 +74,10 @@ public class CustomUserDetailsService implements UserDetailsService { //추상 �
 		
 	}
 
-	public int checkId(String mem_id) {
-		int result = memberMapper.checkId(mem_id);
-		return result;
-	}
+//	public int checkId(String mem_id) {
+//		int result = memberMapper.checkId(mem_id);
+//		return result;
+//	}
 
 
 	

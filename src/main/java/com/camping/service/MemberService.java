@@ -18,8 +18,10 @@ public interface MemberService {
 
 	public MemberVO findIdByNameAndPhoneNumber(@Param("mem_name") String mem_name, @Param("mem_tel") String mem_tel);
 
-	public boolean checkId(String mem_id);
+	public int checkId(String mem_id);
 	
 	public MemberVO checkEmail(@Param("mem_id") String mem_id, @Param("mem_email") String mem_email);
+
+	public MemberVO getTemporaryPasswordInformation(@Param("mem_name") String mem_name, @Param("mem_email") String mem_email, @Param("mem_tel") String mem_tel);
 
 }

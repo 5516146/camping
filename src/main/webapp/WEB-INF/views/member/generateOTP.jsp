@@ -1,24 +1,69 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-<form class = "content" action="pw_auth.me" method="post">
-	<div class="textbox">
-  		<input id="text" name=name required="" type="text" />
-  		<label for="text">¿Ã∏ß</label>
-   		<div class="error">¿Ã∏ß¿ª ¿‘∑¬«œººø‰  </div>
- 	</div>
-	<div class="textbox">
-  		<input id="email" name=email required="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)?$/i" type="email" />
-  		<label for="email">¿Ã∏ﬁ¿œ</label>
-  	<div class="error">¿Ø»ø«œ¡ˆ æ ¿∫ ¿Ã∏ﬁ¿œ¡÷º“ ¿‘¥œ¥Ÿ  </div>
-	</div><br><br>
-   	<input type="submit" id="check" value="∫Òπ–π¯»£√£±‚">
-</form>
-</body>
-</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@include file="../includes/header.jsp"%>
+<br>
+<br>
+<br>
+<!-- ======= My & Family Section ======= -->
+<section id="about" class="about">
+	<div class="section">
+		<div class="container">
+			<form class="content" action="/member/pw_auth.me" method="post">
+				<div class="title">
+					<span class="yogi">ÎπÑÎ∞ÄÎ≤àÌò∏ Ï∞æÍ∏∞</span>
+				</div>
+				<div class="center">
+					<div class="card-3d-wrap mx-auto">
+						<div class="card-3d-wrapper">
+							<div class="card-front find-card">
+								<div class="center-wrap">
+									<div class="section text-center">
+									<div class="generate-form">
+										<div class="form-groups textbox" id="textbox_name">
+											<input id="myNameForOTP" name=myNameForOTP
+												required="required" type="text" class="form-styles" /> <label
+												class="myNameForOTP yogi yo" for="text">Ïù¥Î¶Ñ</label>
+										</div>
+										<div class="form-groups textbox" id="textbox_email">
+											<input id="myEmailForOTP" name=myEmailForOTP
+												class="form-styles"
+												required="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)?$/i"
+												type="email" /> <label class="myEmailForOTP yogi yo"
+												for="email">Ïù¥Î©îÏùº</label>
+										</div>
+										<div class="form-groups textbox" id="textbox_tel">
+											<input id="myTelForOTP" name=myTelForOTP required="required"
+												pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" type="text"
+												class="form-styles" /> <label class="myTelForOTP yogi yo"
+												for="tel">Ìú¥ÎåÄÌè∞</label>
+										</div>
+										</div>
+										<br>
+										<br> <input type="submit" id="btn-sendOTP" value="ÏûÑÏãú ÎπÑÎ∞ÄÎ≤àÌò∏ Î∞úÍ∏â" class="btn-OTP yogi yo">
+										<input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+	<script>
+		$("#check").on("click", function() {
+			var error = '<c:out value="${error}"/>';
+			if (error != null) {
+				alert(error);
+			}
+		})
+	</script>
+
+
+</section>
+
+<%@include file="../includes/footer.jsp"%>

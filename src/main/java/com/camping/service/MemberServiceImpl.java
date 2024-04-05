@@ -76,20 +76,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean checkId(String mem_id) {
+	public int checkId(String mem_id) {
 		log.info("아이디 사용 가능 서비스 레이어" +memberMapper.checkId(mem_id));
 		int result = memberMapper.checkId(mem_id);
-		
-		if(result != 1) {
-			return false;
-		}
-		return true;
+		return result;
 	}
 
 	@Override
 	public MemberVO checkEmail(String mem_id, String mem_email) {
 		log.info("이메일 확인 서비스 레이어" +memberMapper.checkEmail(mem_id, mem_email));
 		return memberMapper.checkEmail(mem_id, mem_email);
+	}
+
+	@Override
+	public MemberVO getTemporaryPasswordInformation(String mem_name, String mem_email, String mem_tel) {
+		log.info("memberMapper.getTemporaryPasswordInformation()" + memberMapper.getTemporaryPasswordInformation(mem_name, mem_email, mem_tel));
+		return memberMapper.getTemporaryPasswordInformation(mem_name, mem_email, mem_tel);
 	}
 
     

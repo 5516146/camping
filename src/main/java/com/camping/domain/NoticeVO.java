@@ -1,6 +1,7 @@
 package com.camping.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -14,4 +15,6 @@ public class NoticeVO {
 	private Date board_updatedate;
 	private int board_hit;
 	private String mem_id;
+	
+	private List<Notice_AttachVO> attachList;
 }

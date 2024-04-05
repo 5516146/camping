@@ -27,16 +27,6 @@ public class HomeController {
 	public void question() {
 		
 	}
-
-	@GetMapping("/video")
-	public void video() {
-		
-	}
-	
-	@GetMapping("/test")
-	public void test() {
-		
-	}
 	
 	
 	

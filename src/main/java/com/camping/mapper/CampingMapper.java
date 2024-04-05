@@ -24,4 +24,6 @@ public interface CampingMapper {
 	
 	public int update(CampingVO camping);
 	
+	public int getTotalCount(Criteria cri);
+	
 }

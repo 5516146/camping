@@ -19,4 +19,5 @@ public interface CampingService {
 	
 	public List<CampingVO> getList(Criteria cri);
 	
+	public int getTotal(Criteria cri);
 }

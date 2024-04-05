@@ -17,6 +17,7 @@
 <p>사용자아이디 : ${pinfo.username}</p>
 <p>사용자 권한 리스트 :${pinfo.member.authList}</p>
 
+<a href="/">메인페이지로</a>
 <a href="/customLogout">Logout</a>
 
 <!-- <sec:authentication property="principal" />: UserDetailService에서 반환된 객체  -->

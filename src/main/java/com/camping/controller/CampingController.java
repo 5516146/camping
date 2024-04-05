@@ -1,8 +1,10 @@
 package com.camping.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,13 +38,22 @@ public class CampingController {
 		
 		log.info("list: " + cri);
 		model.addAttribute("list", service.getList(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri, 40));
+		//model.addAttribute("pageMaker", new PageDTO(cri, 40));
+		
+		int total = service.getTotal(cri);
+		
+		log.info("total: " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/register")
 	public void register() {
 		
 	}
+	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String register(CampingVO camping, RedirectAttributes rttr) {
 		
@@ -56,29 +67,42 @@ public class CampingController {
 		
 	}
 	
+	
 	@GetMapping({"/get","/modify"})
-	public void get(@RequestParam("board_no")Long board_no, Model model) {
+	public void get(@RequestParam("board_no")Long board_no, 
+			@ModelAttribute("cri") Criteria cri, Model model) {
 		
 		log.info("/get or modify");
 		model.addAttribute("camping", service.get(board_no));
 	}
 	
+	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/modify")
-	public String modify(CampingVO camping, RedirectAttributes rttr) {
+	public String modify(CampingVO camping,@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + camping);
 		
 		if(service.modify(camping)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		
 		return "redirect:/camping/list";
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/remove")
-	public String remove(@RequestParam("board_no")Long Board_no, RedirectAttributes rttr) {
+	public String remove(@RequestParam("board_no")Long Board_no,@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("remove......." + Board_no);
 		if (service.remove(Board_no)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		
 		return "redirect:/camping/list";
 	}
 	

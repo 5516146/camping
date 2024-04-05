@@ -48,31 +48,31 @@
 	<div class="jb-division-line"></div>
 	<table class="myInfo yogi yo">
 	  <tbody>
-	    <tr class="impossible">
+	    <tr class="tbtr impossible">
 	      <td>아이디</td>
 	      <td>${member.mem_id}</td>
 	    </tr>
-	    <tr class="impossible">
+	    <tr class="tbtr impossible">
 	      <td>이름</td>
 	      <td>${member.mem_name}</td>
 	    </tr>
-	    <tr onclick="window.location.href = '/member/updateForm';">
+	    <tr class="tbtr" onclick="window.location.href = '/member/updateForm';" >
 	      <td>비밀번호</td>
 	      <td>😘</td>
 	    </tr>
-	    <tr onclick="window.location.href = '/member/updateForm';">
+	    <tr class="tbtr" onclick="window.location.href = '/member/updateForm';">
 	      <td>이메일</td>
 	      <td>${member.mem_email}</td>
 	    </tr>
-	    <tr onclick="window.location.href = '/member/updateForm';">
+	    <tr class="tbtr" onclick="window.location.href = '/member/updateForm';">
 	      <td>전화번호</td>
 	      <td>${member.mem_tel}</td>
 	    </tr>
-	    <tr class="impossible">
+	    <tr class="tbtr impossible">
 	      <td>가입날짜</td>
 	      <td>${member.mem_date}</td>
 	    </tr>
-	    <tr class="impossible">
+	    <tr class="tbtr impossible">
 	      <td>회원</td>
 	      <c:if test="${not empty member.authList}">
 	        <td>일반 회원</td>

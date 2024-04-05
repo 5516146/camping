@@ -28,7 +28,7 @@ public class NoticeController {
 		
 		log.info("noticelist");
 		
-		model.addAttribute("noticelist", service.getList());
+		//model.addAttribute("noticelist", service.getList());
 		
 	}
 

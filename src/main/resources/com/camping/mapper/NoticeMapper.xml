@@ -12,12 +12,12 @@ select * from BOARD_NOTICE where BOARD_NO > 0
 
 <insert id="insert">
 	insert into BOARD_NOTICE (BOARD_NO, BOARD_TITLE, BOARD_CONTENT, MEM_ID)
-	values (seq_BOARD_NOTICE.nextval, #{board_title}, #{board_content}, #{mem_id})
+	values (SEQ_BOARD_NOTICE.nextval, #{board_title}, #{board_content}, #{mem_id})
 </insert>
 
 <insert id="insertSelectKey">
 	<selectKey keyProperty="board_no" order="BEFORE" resultType="int">
-		select seq_BOARD_NOTICE.nextval from dual
+		select SEQ_BOARD_NOTICE.nextval from dual
 	</selectKey>
 
 	insert into BOARD_NOTICE (BOARD_NO, BOARD_TITLE, BOARD_CONTENT, MEM_ID)

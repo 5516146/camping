@@ -9,236 +9,324 @@
 
 <!-- ======= My & Family Section ======= -->
 <section id="about" class="about">
-	<h2>
-		<c:out value="${error}" />
-	</h2>
-	<h2>
-		<c:out value="${logout}" />
-	</h2>
 	<div class="section">
-		<div class="container">
-			<div class="row full-height justify-content-center">
-				<div class="col-12 text-center align-self-center">
-				<div class="title"><span class="yogi">회원가입</span></div>
-					<div class="center">
-						<div class="card-3d-wrap mx-auto">
+	<div class="container">
+    	<form id="joinForm" name="joinForm" action="/member/join" method="post">
+	      <div class="title"><span class="yogi">회원가입</span></div>
+	      <div class="card-3d-wrap mx-auto">
 							<div class="card-3d-wrapper">
 								<div class="card-front">
 									<div class="center-wrap">
 										<div class="section text-center">
-											<div class="panel-body">
-											<div id="signup-form">
-												<!-- <form role="form" method='post' action="/member/join" id="myForm"> -->
-														<!-- 사용할 아이디 입력 -->
-														<div class="form-group mt-2">
-															<input type="text" name="mem_id" class="form-style yogi yo"
-																placeholder="아이디" id="mem_id"
-																oninput="checkId(),activateSignupbtn()"
-																autocomplete="off">
-															
-																 <span id="idChk"></span></p>
-														</div>
-														<!-- 사용할 비밀번호 입력 -->
-														<div class="form-group mt-2">
-															<input type="password" name="mem_pw" class="form-style yogi yo"
-																placeholder="비밀번호" id="mem_pw"
-																oninput="checkPwd(),activateSignupbtn()"
-																autocomplete="off">
-																<font color="red" id="failpwd" style="display:none">
-																8~16자의 영문과 숫자를 조합하여 입력하세요.
-																</font>
-														</div>
-														
-														<!-- oninput="checkPwd2(),activateSignupbtn()" -->
-														<!-- 비밀번호 한 번 더 입력 -->
-														<div class="form-group mt-2">
-															<input type="password" name="pwCheck" class="form-style yogi yo"
-																placeholder="비밀번호 확인" id="pwCheck"
-																oninput="checkPwd2(),activateSignupbtn()"
-																autocomplete="off">
-														</div>
-														
-														<!-- oninput="checkName(),activateSignupbtn()" -->
-														<!-- 사용자 이름 -->
-														<div class="form-group mt-2">
-															<input type="text" name="mem_name" class="form-style yogi yo"
-																placeholder="이름" id="joinname" 
-																oninput="checkName(),activateSignupbtn()"
-																autocomplete="off"> <i
-																class="input-icon uil uil-at"></i>
-														</div>
-														
-														<!-- oninput="checkEmail(),activateSignupbtn()" -->
-														<!-- 이메일 -->
-														<div class="form-group mt-2">
-															<input type="email" name="mem_email" class="form-style yogi yo"
-																placeholder="이메일" id="joinemail"
-																oninput="checkEmail(),activateSignupbtn()"
-																autocomplete="off">
-														</div>
-														
-														<!-- oninput="addhyphen(),checkTel(),activateSignupbtn()" -->
-														<!-- 전화번호 -->
-														<div class="form-group mt-2">
-															<input type="text" name="mem_tel" class="form-style yogi yo"
-																placeholder="전화번호" id="jointel"
-																oninput="addhyphen(),checkTel(),activateSignupbtn()"
-																autocomplete="off">
-																<div class="arrow_box">입력된 전화번호로 인증 문자가 발송됩니다!</div>
-														</div>
-														<!-- <div class="authMessage">
-														<input type="button" onclick="authnum()" class="btn btn-authbtn" value="인증 요청">
-															<div style="display:none;" class="successMessage">
-																<b>입력하신 휴대전화로 인증번호가 발송되었습니다.</b>
-															</div>
-														<input type="text" name="authNum" id="authNum" class="authNum" placeholder="인증번호를 입력하세요">
-														<input type="button" class="btn btn-authNum" 
-														onclick="checkMessage()" value="인증 확인">
-														<div style="display:none;" class="authsuccessMessage"><b>인증 성공</b></div>
-														</div> -->
-														
-														<!-- <a href="#" class="btn mt-4">submit</a> -->
-														<%-- <input type="submit" value="Submit">
-														<input type="hidden" name="${_csrf.parameterName}"
-														value="${_csrf.token}" /> --%>
-												<!-- </form> -->
-												<input type="submit" id="joinButton" class="btn btn-lg btn-join btn-block yogi"
-														value="완료">
-														<input type="hidden" name="${_csrf.parameterName}"
-														value="${_csrf.token}" />
-												<!-- </form> -->
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+	        <div class="form-groups" id="info__id">
+	        	<div class="error-msg emsg yogi yo"></div>
+			    <div id="id-input">
+			        <input class="form-styles yogi yo" name="mem_id" id="mem_id" type="text" placeholder="아이디(6~20)"/>
+			        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			    </div>
+			    <button type="button" name="chkId" id="chkId"
+			    class="btn-chk btn-block yogi yo">중복 확인</button>
+			    <input type="hidden" name="idUncheck" value="" />
+			    <div id="id_error_msg yogi yo"></div>
 			</div>
-		</div>
-	</div>
-	
-		
-	<!-- jQuery -->
-	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+	        <div class="form-groups" id="info__pw">
+	          <input class="form-styles yogi yo" name="mem_pw" id="mem_pw" type="password" placeholder="비밀번호(8~20)"/>
+	          <div class="error-msg emsg yogi yo"></div>
+	        </div>
+	        <div class="form-groups" id="info__pwRe">
+	          <input class="form-styles yogi yo" name="reMem_pw" id="reMem_pw" type="password" placeholder="비밀번호 확인"/>
+	          <div class="error-msg emsg yogi yo"></div>
+	        </div>
+	        <div class="form-groups" id="info__name">
+	          <input class="form-styles yogi yo" name="mem_name" id="mem_name" type="text" placeholder="이름(숫자 사용 불가능)"/>
+	          <div class="error-msg emsg yogi yo"></div>
+	        </div>
+	        <div class="form-groups" id="info__email">
+	          <input type="hidden" name="email" id="totalemail" value="" />
+	          <input type="text" name="mem_email" id="mem_email" class="form-styles yogi yo" required placeholder="이메일"/>
+	          <span id="middle">@</span>
+	          <input type="text" value="" id="email_address" class="form-styles yogi yo" list="user_email_address" placeholder="직접 입력">
+	          <datalist id="user_email_address">
+	            <option value="naver.com" id="naver.com">naver.com</option>
+	            <option value="gmail.com" id="gmail.com">gmail.com</option>
+	            <option value="daum.com" id="daum.com">daum.com</option>
+	            <option value="nate.com" id="nate.com">nate.com</option>
+	            <option value="directly" id="textEmail">직접 입력</option>
+	          </datalist>
+	          
+	        </div>
+	        <div class="form-groups" id="info__mobile">
+	          <input class="form-styles yogi yo" name="mem_tel" onclick="addhyphen()" id="mem_tel" type="text" placeholder="전화번호"/>
+	          <div class="error-msg emsg yogi yo"></div>
+	        </div>
+	      <div id="result-fail"></div>
+	      <button name="btn-join" id="submitBtn" class="btn-lg btn-login yogi" type="button">완료</button>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    	</form>
+  </div>
+ </div>
 
-	Bootstrap Core JavaScript
-	<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script>
+$(".btn-chk").click(function(){
 
-	Metis Menu Plugin JavaScript
-	<script src="/resources/vendor/metisMenu/metisMenu.min.js"></script>
-
-	Custom Theme JavaScript
-	<script src="/resources/dist/js/sb-admin-2.js"></script>
-	
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<!-- <script src="css/styles.css"></script> -->
-	
-	
-	
-	<!-- 완료 -->
-	<script>
-	$(document).ready(function(){
-    $(".btn-join").on(
-        "click",
-        function(e) {
-            e.preventDefault();
-
-            if ($("#mem_id").val() === null || $("#mem_id").val() === "") {
-                // 빈칸이 있는 상태로 submit을 눌렀을 때
-                alert("아이디를 입력하세요.");
-            } else if ($("#mem_pw").val() === null || $("#mem_pw").val() === "") {
-                alert("비밀번호를 입력하세요.");
-            } else if ($("#pwCheck").val() === null || $("#pwCheck").val() === "") {
-                alert("비밀번호를 확인하세요.");
-            } else if ($("#joinname").val() === null || $("#joinname").val() === "") {
-                alert("이름을 입력하세요.");
-            } else if ($("#joinemail").val() === null || $("#joinemail").val() === "") {
-                alert("이메일을 입력하세요.");
-            } else if ($("#jointel").val() === null || $("#jointel").val() === "") {
-                alert("전화번호를 입력하세요.");
-            } else {
-                $("form").submit();
-            }
-        });
-	});
+$("input[name=idUncheck]").val('y');
+});	
 </script>
 
 <script>
-$(function() {
-    
-    //각 입력값들의 유효성 검증을 위한 정규표현식을 변수로 선언.
-       const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14}$/);
-       const getPwCheck = RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
-       const getNameCheck = RegExp(/^[가-힣]+$/);
-       
-    // 입력값 중 하나라도 만족하지 못한다면 회원가입 처리를 막기위한 논리형 변수 선언.
-   	 let chk1 = false, chk2 = false, chk3 = false, chk4 = false;
-   	    
-    //회원가입시 사용자의 입력값 검증!
-    
-    //1. ID입력값 검증 
-    $('#mem_id').keyup(function() {
-    // 입력값이 변경될 때마다 실행되는 코드
-    const id = $(this).val(); // 입력된 아이디 값 가져오기
+	
+$(document).ready(function() {
+	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
+	let csrfTokenValue = "${_csrf.token}";
+	let alertCheckId = false; // 기본값 false 부여
+ 	//아이디 중복 체크
+    $("#chkId").click(function() {
+    	
+    	$("#submitBtn").attr("type", "button");
+    	if($("input[name='btn-join']").val()==''){
+            alert('아이디중복 확인을 해주세요.');
+            $("input[name='btn-join']").eq(0).focus();
+            return false;
+       	}
+    	
+        const mem_id = $("#mem_id").val();
+        console.log('mem_id :',mem_id); 
 
-    // 아이디 유효성 검사
-    if (id === '') {
-        $(this).css('background-color', 'pink');
-        $('#idChk').html('<b style="font-size: 14px; color: red">[아이디는 필수값입니다.]</b>');
-        chk1 = false;
-    } else if (!getIdCheck.test(id)) {
-        $(this).css('background-color', 'pink');
-        $('#idChk').html('<b style="font-size: 14px; color: red">[영문자, 숫자조합 4-14로쓰세요]</b>');
-        chk1 = false;
-    } else {
-        // 아이디 중복 확인 ajax 호출
+        if (mem_id == '' || mem_id.length == 0) {
+            $("#id_error_msg").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
+            return false;
+        }
+
+        // Ajax로 전송
         $.ajax({
-            type: 'post',
             url: '/member/idCheck',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            type: 'GET',
+            async: true,
+            data: {mem_id:mem_id},
             dataType: 'text',
-            data: id,
+		            beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+						xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+					},
             success: function(result) {
-                console.log('통신 성공!' + result);
-                if (result === 'available') {
-                    $('#mem_id').css('background-color', 'aqua');
-                    $('#idChk').html('<b style="font-size: 14px; color: green">[아이디 사용이 가능하다.]</b>');
-                    chk1 = true;
+            	console.log('AJAX request success. Result:', result);
+                if (result == "1") {
+                	console.log(result);
+                	alert("이미 사용중인 ID 입니다.");
+                	$("#id_error_msg").text("이미 사용중인 ID 입니다.");
+        			$("#id_error_msg").addClass("id_error_msgf");
+        			$("#id_error_msg").removeClass("id_error_msgt");
+                	alertCheckId = false;
                 } else {
-                    $('#mem_id').css('background-color', 'pink');
-                    $('#idChk').html('<b style="font-size: 14px; color: red">[아이디 중복!.]</b>');
-                    chk1 = false;
+                	console.log(result);
+                	alert("사용 가능한 ID 입니다.");
+                	$("#id_error_msg").text("사용 가능한 ID 입니다.");
+        			$("#id_error_msg").addClass("id_error_msgt");
+        			$("#id_error_msg").removeClass("olmessagef");
+                    $("#submitBtn").attr("type", "button");
+                	alertCheckId = true;
                 }
             },
-            error: function(status, error) {
-                console.log('통신실패');
-                console.log(status, error);
+            error: function(xhr, status, error) {
+                // 서버 요청 실패 시 실행할 코드
+                alertCheckId = false;
+                alert("오류 코드 발생");
+                console.error('AJAX request failed:', error);
             }
-        });
-    }
+        }); // End Ajax
+    });
+
+	//email
+	$("#mem_email").blur(function() {
+		email();
+	});
+	
+	$("#email_address").change(function(){
+		email();
+	});
+	
+	function email() { //사용자가 input에 입력한 세 개의 값을 가져오되 사용자 이메일 주소의 아이디와 도메인 주소는 val() 메서드를 사용
+		const email = $("#mem_email").val();
+		const middle = $("#middle").text(); //@: html로 입력했으므로 html() 혹은 text()로 가져옴
+		const address = $("#email_address").val();
+		if(email != "" && address != "") {
+			$("#totalemail").val(email + middle + address);
+		}	
+	};
+	
+	/*** SECTION - 이름 ***/
+	const nameInputEl = document.querySelector('#info__name input');
+	const nameErrorMsgEl = document.querySelector('#info__name .error-msg');
+	
+	nameInputEl.addEventListener('change', () => {
+	    const nameRegExp = /^[a-zA-Z가-힣\s]{2,}$/;
+	    if (nameRegExp.test(nameInputEl.value)) { //정규식 조건 만족
+	        nameErrorMsgEl.textContent = "";
+	    } else {
+	        nameErrorMsgEl.style.color = "red";
+	        nameErrorMsgEl.textContent = "이름은 숫자와 특수문자 사용이 불가능합니다.";
+	    }
+	    console.log(account);
+	});
+	
+	/*** SECTION - ID ***/
+	const idInputEl = document.querySelector('#info__id input');
+	const idErrorMsgEl = document.querySelector('#info__id .error-msg');
+	const idCheckBtn = document.querySelector('#id-check');
+	var account = {};
+	var errMsg = {
+					id: {
+				    invalid: "올바른 형식의 아이디를 입력하세요."
+				  },
+				  pwRe: {
+				    success: "비밀번호가 일치합니다.",
+				    fail: "비밀번호가 일치하지 않습니다."
+				  },
+				  pw: "영문, 숫자, 특수문자를 포함하여 8자 이상 20자 이하로만 사용 가능합니다."
+	};
+	
+	idInputEl.addEventListener('change', () => {
+	  const idRegExp = /^[a-zA-Z0-9]{6,20}$/;
+	  if(idRegExp.test(idInputEl.value)) { // 정규식 조건 만족
+	    idErrorMsgEl.textContent = "";
+	    account.id = idInputEl.value;
+	  } else { // 정규식 조건 만족 X
+	    idErrorMsgEl.style.color = "red";
+	    idErrorMsgEl.textContent = errMsg.id.invalid;
+	    account.id = null;
+	  }
+	  console.log(account);
+	});
+	
+	/*** SECTION - PASSWORD ***/
+	//pwVal: 패스워드, pwReVal: 패스워드 재입력, isPwValid: 패스워드 유효 여부
+	let pwVal = "", pwReVal = "", isPwValid = false
+	//비밀번호와 재입력 값 일치 여부
+	function checkPwValid() {
+		var account = {};
+		var errMsg = {
+			id: {
+		    invalid: "아이디 입력은 필수 입니다."
+		  },
+		  pwRe: {
+		    success: "비밀번호가 일치합니다.",
+		    fail: "비밀번호가 일치하지 않습니다."
+		  },
+		  pw: "영문, 숫자, 특수문자를 포함하여 8자 이상 20자 이하로만 사용 가능합니다."};
+		var success = {};
+		var fail = {};
+	if(pwReVal === "") { // 미입력
+	 pwReErrorMsgEl.textContent = ""
+	} else if(pwVal === pwReVal) { // 비밀번호 재입력 일치
+	   if(isPwValid)
+	    account.pw = pwVal
+	    pwReErrorMsgEl.style.color = "green"
+	    pwReErrorMsgEl.textContent = errMsg.pwRe.success
+	}
+	else { // 비밀번호 재입력 불일치
+	 pwReErrorMsgEl.style.color = "red"
+	 pwReErrorMsgEl.textContent = errMsg.pwRe.fail
+	}
+	}
+	
+	const pwInputEl = document.querySelector('#info__pw input')
+	const pwErrorMsgEl = document.querySelector('#info__pw .error-msg')
+	pwInputEl.addEventListener('change', () => {
+	const pwRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/
+	pwVal = pwInputEl.value
+	if(pwRegExp.test(pwVal)) { // 유효성 검사 성공
+	 isPwValid = true
+	 pwErrorMsgEl.textContent = ""
+	} 
+	else { // 유효성 검사 실패
+	 isPwValid = false
+	 pwErrorMsgEl.textContent = errMsg.pw
+	}
+	checkPwValid()
+	console.log(pwVal, pwReVal, isPwValid, account)
+	});
+	
+	/*** SECTION - PASSWORD RECHECK ***/
+	const pwReInputEl = document.querySelector('#info__pwRe input')
+	const pwReErrorMsgEl = document.querySelector('#info__pwRe .error-msg')
+	pwReInputEl.addEventListener('change', () => {
+		pwReVal = pwReInputEl.value
+		checkPwValid()
+		console.log(pwVal, pwReVal, isPwValid, account);
+	});
+	
+	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
+	$("#submitBtn").on("click", function(e){
+		//이름 유효성 검사
+		const nameRegExp = /^[a-zA-Z가-힣\s]{2,}$/; // Allow alphabets, spaces, and Korean characters
+	    const nameInput = $("#info__name input").val().trim();
+	    if (!nameRegExp.test(nameInput)) {
+	        alert("올바른 형식으로 작성하세요.");
+	        return false;
+	    }
+	    
+		//id 유효성 검사	
+		const idRegExp = /^[a-zA-Z0-9]{6,20}$/;
+		if(!idRegExp.test(idInputEl.value)) {
+			alert("영문자 또는 숫자로 6자 이상 20자 이하로만 사용 가능합니다.");
+			return false;
+		}
+		
+		// 비밀번호 유효성 검사
+	    const pwRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+	    if (!pwRegExp.test(pwVal)) {
+	        alert("영문, 숫자, 특수문자를 포함하여 8자 이상 20자 이하로만 사용 가능합니다.");
+	        return;
+	    }
+		
+	 	// 비밀번호 재입력 일치 여부 확인
+	    if (pwVal !== pwReVal) {
+	        alert("비밀번호가 일치하지 않습니다.");
+	        return;
+	    }
+	 	
+    	if($("input[name='idUncheck']").val()==''){
+            alert('아이디중복 확인을 해주세요.');
+            $("input[name='idUncheck']").eq(0).focus();
+           
+            $(".btn-chk").click(function(){
+
+            	$("input[name=idUncheck]").val('y');
+            	});	
+            return false;
+       	} else {
+       		var form = $("form[name='joinForm']"); // ID를 사용하여 폼 요소를 선택
+    		form.submit();
+       		return true;
+       	}
+	    
+	    var form = $("form[name='joinForm']"); // ID를 사용하여 폼 요소를 선택
+		form.submit();
+	    
+	});
 });
-       
-    //2. 비밀번호 입력값 검증
-    $('#mem_pw').keyup(function() {
-       if($(this).val() === '' ) {//지금 발생하는 이곳이 빈 문자열이니?
-          $(this).css('background-color', 'pink');
-          $('#pwChk').html('<b style="font-size: 14px; color: red">[비밀번호는 필수값입니다.]</b>');//텍스트를 집어넣을거야 
-          chk1 = false;
-       }
+
 </script>
 
 	<script>
-			//전화번호 자동 입력 함수 구현
-			function addhyphen() {
-			   $(document).on("keyup", "#jointel", function () {
-			      $(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3").replace("--", "-") ); //- 자동으로 입력
-			   })
-			}
+	$(document).on("focus", "#mem_tel", function () {
+        addhyphen();
+        
+      //전화번호 자동 입력 함수 구현
+		function addhyphen() {
+		 		$(document).on("keyup", "#mem_tel", function () {
+  				$(this).val( 
+    				$(this).val().replace(/[^0-9]/g, "") // 숫자 이외의 문자 제거
+                 	.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3") // 전화번호에 하이픈 추가
+                	.replace("--", "-") // 중복된 하이픈 제거
+  				);
+			});
+    });
+			
+}
 			
 			/* //인증문자
 			function authnum(){
@@ -269,7 +357,6 @@ $(function() {
 			   }
 			}
 	</script>
-
 </section>
 
 <%@include file="../includes/footer.jsp"%>

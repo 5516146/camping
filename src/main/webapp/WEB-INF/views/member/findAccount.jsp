@@ -13,85 +13,77 @@
 	<h2>
 		<c:out value="${logout}" />
 	</h2>
-	<div class="section">
-		<div class="container">
-			<div class="title"><span class="yogi">아이디 찾기</span></div>
-					<div class="center">
-						<div class="card-3d-wrap mx-auto">
-							<div class="card-3d-wrapper">
-								<div class="card-front find-card">
-									<div class="center-wrap">
-										<div class="section text-center">
-											<div class="panel-body">
-											<div id="findId-form">
-												<form role="form" method='post' action="/member/findId">
-													<!-- 3. post 메서드를 통해서 /login URI로 폼 데이터 전달(아이디, 비밀번호(토큰) 전달) -> security-context.xml로 넘어감 -->
-													<div class="form-group">
-														<input type="text" name="mem_name" class="form-style yogi yo"
-															id="myName" autocomplete="off" required="required"
-															placeholder="이름"> <i
-															class="input-icon uil uil-at"></i>
-													</div>
-													<div class="form-group">
-														<input type="text" name="mem_tel" class="form-style yogi yo"
-															id="myTel" autocomplete="off" required="required"
-															placeholder="전화번호"> <i
-															class="input-icon uil uil-at"></i>
-													</div>
-													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-												<button type="submit" id="findButton"
-														class="btn btn-lg btn-find btn-block yogi">검색</button>
-												</form>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								
-							</div>
-						</div>
-					</div>
-					
-					
-					<div class="title"><span class="yogi">비밀번호 찾기</span></div>
-					<div class="center">
-						<div class="card-3d-wrap mx-auto">
-							<div class="card-3d-wrapper">
-								<div class="card-front find-card">
-									<div class="center-wrap">
-										<div class="section text-center">
-											<div class="panel-body">
-											<div id="findId-form">
-												<form role="form" method='post' action="/member/findId">
-													<!-- 3. post 메서드를 통해서 /login URI로 폼 데이터 전달(아이디, 비밀번호(토큰) 전달) -> security-context.xml로 넘어감 -->
-													<div class="form-group">
-														<a href="/member/generateOTP">
-    														<input type="button" value="휴대폰으로 찾기" />
-														</a>
-													</div>
-													<div class="form-group">
-														<a href="/member/sendPasswordResetEmail">
-    														<input type="button" value="이메일로 찾기" />
-														</a>
-													</div>
-													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-												<button type="submit" id="findButton"
-														class="btn btn-lg btn-find btn-block yogi">검색</button>
-												</form>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
+	<div class="info" id="info__id">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- 아이디 찾기 -->
+                <div class="title"><span class="yogi">아이디 찾기</span></div>
+                <div class="center">
+                    <div class="card-3d-wrap mx-auto">
+                        <div class="card-3d-wrapper">
+                            <div class="card-front find-card">
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <div class="panel-body">
+                                            <div id="findId-form">
+                                                <form role="form" method='post' action="/member/findId">
+                                                    <div class="form-group">
+                                                        <input type="text" name="mem_name" class="form-style yogi yo"
+                                                            id="myName" autocomplete="off" required="required"
+                                                            placeholder="이름"> <i
+                                                            class="input-icon uil uil-at"></i>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" name="mem_tel" class="form-style yogi yo"
+                                                            id="myTel" autocomplete="off" required="required"
+                                                            placeholder="전화번호"> <i
+                                                            class="input-icon uil uil-at"></i>
+                                                    </div>
+                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                                    <button type="submit" id="findButton"
+                                                        class="btn btn-lg btn-find btn-block yogi">검색</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- 비밀번호 찾기 -->
+                <div class="title"><span class="yogi">비밀번호 찾기</span></div>
+                <div class="center">
+                    <div class="card-3d-wrap mx-auto">
+                        <div class="card-3d-wrapper">
+                            <div class="card-front find-card">
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <div class="panel-body">
+                                            <div id="findId-form">
+                                                <form role="form" method='post' action="/member/findId">
+                                                    <div class="form-groups">
+                                                        <a href="/member/generateOTP">
+                                                            <input type="button" value="휴대폰으로 찾기" />
+                                                        </a>
+                                                    </div>
+                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 	<!-- jQuery -->
@@ -108,7 +100,7 @@
 
 	<!-- <script src="css/styles.css"></script> -->
 	<script>
-		$(".btn-success").on(
+		$(".btn-find").on(
 				"click",
 				function(e) {
 					e.preventDefault();
@@ -117,32 +109,16 @@
 							|| $("#myName").val() === "") {
 						// 빈칸이 있는 상태로 submit을 눌렀을 때
 						alert("이름을 입력하세요.");
+					} else if ($("#myTel").val() === ""){
+						alert("전화번호 입력하세요.");
 					} else {
 						$("form").submit();
 					}
 				});
 	</script>
-
-	<script>
-		$(document).ready(function() {
-			$('#myModal').modal('show');
-			/* backdrop: 'static', //배경 클릭해도 모달 안 닫히도록 해놓음
-			keyboard: false //esc 키로 모달 안 닫히도록 해놓음 */
-		});
-	</script>
-	
-	
-	<c:if test="${param.logout != null}">
-		<script>
-			$(document).ready(function() {
-				alert("로그아웃하였습니다.");
-			});
-		</script>
-	</c:if>
 	
 	<script>
 		var myId = '<c:out value="${myId}"/>'
-		
 	</script>
 </section>
 

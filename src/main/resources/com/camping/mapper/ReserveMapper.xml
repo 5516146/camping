@@ -35,11 +35,11 @@
     </delete>
     
     <select id="selectStartDate" resultType="String">
-        select distinct RESERVE_STARTDATE from CAMPING.RESERVE where CAMP_NO = #{camp_no}
+        select distinct RESERVE_STARTDATE from CAMPING.RESERVE where CAMP_NO = #{camp_no} order by RESERVE_STARTDATE asc
     </select>
 
     <select id="selectEndDate" resultType="String">
-        select distinct RESERVE_ENDDATE from CAMPING.RESERVE where CAMP_NO = #{camp_no}
+        select distinct RESERVE_ENDDATE from CAMPING.RESERVE where CAMP_NO = #{camp_no} order by RESERVE_ENDDATE asc
     </select>
 
     <select id="selectCampPrice" resultType="com.camping.domain.CampVO">

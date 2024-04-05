@@ -48,12 +48,26 @@
 		    AND mem.mem_tel = #{mem_tel, jdbcType=VARCHAR}
 	</select>
 	
-	<select id="checkId">
+	<select id="getTemporaryPasswordInformation" resultMap="memberMap" parameterType="com.camping.domain.MemberVO">
 		    SELECT
-		    mem_id
+		    mem.mem_id, mem_pw, mem_name,
+		    mem_email, mem_tel, mem_date, mem_enabled,
+		    auth.auth
+		    FROM
+		    member mem
+		    LEFT OUTER JOIN member_auth auth on mem.mem_id = auth.mem_id
+		    WHERE
+		    mem.mem_name = #{mem_name, jdbcType=VARCHAR}
+		    AND mem.mem_tel = #{mem_tel, jdbcType=VARCHAR}
+		    AND mem.mem_email = #{mem_email, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="checkId" parameterType="com.camping.domain.MemberVO" resultType="int">
+		    SELECT
+		    count(mem_id)
 		    FROM
 		    member
-		    WHERE mem_id = #{mem_id};
+		    WHERE mem_id = #{mem_id}
 	</select>
 	
 	<select id="checkEmail" resultMap="memberMap" parameterType="com.camping.domain.MemberVO">
@@ -61,7 +75,7 @@
 		    mem_id, mem_email
 		    FROM
 		    member
-		    WHERE mem_id = #{mem_id};
+		    WHERE mem_id = #{mem_id}
 	</select>
 	
 	<update id="update">

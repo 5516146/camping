@@ -75,19 +75,18 @@
         background-color: rgba(0, 0, 0, 0.8);
     }
 
-
 </style>
-<!-- <img src="/resources/assets/img/main.jpg" class="img-fluid" alt="..."> -->
+
 <div style="padding-top: 70px;">
     <div style="background-image: url('/resources/assets/img/main.jpg'); background-size: cover; background-position: center; height: 270px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 30px;">
-        <h1 class="text-white" style="font-family: 'Nanum Gothic'; font-weight: bold;">예약</h1>
+        <h2 class="text-white">예약 하기</h2>
     </div>
 </div>
 
-<!-- HTML 버튼 추가 -->
+<!-- 캠핑 섹션 전환 버튼 추가 -->
 <section>
     <div align="center">
-        <h3>캠핑 섹션 선택</h3>
+        <h2 class="font-h2">캠핑 섹션 선택</h2>
         <div align="center">
             <button onclick="changePage('page1')">캠핑동</button>
             <button onclick="changePage('page2')">글램핑동</button>
@@ -104,7 +103,7 @@
     <section class="about">
         <div class="container">
             <div class="section-title">
-                <h2>캠핑동</h2>
+                <h2 class="font-h2">캠핑동</h2>
             </div>
         </div>
     </section>
@@ -112,9 +111,10 @@
     <section>
         <table>
             <tr>
+
+                <%-- 이미지 슬라이드 --%>
                 <td rowspan="5">
                     <div class="slideshow-container">
-
                         <div class="mySlide1">
                             <img src="/resources/assets/img/캠피잉.jpeg" style="width: 620px; height: 510px;">
                         </div>
@@ -127,11 +127,14 @@
                             <img src="/resources/assets/img/캠핑장.png" style="width: 620px; height: 510px;">
                         </div>
 
+                        <%-- 이미지 슬라이드 전환 버튼--%>
                         <a class="prev" onclick="plusSlide1(-1)">❮</a>
                         <a class="next" onclick="plusSlide1(1)">❯</a>
                     </div>
                 </td>
             </tr>
+
+            <%-- 텐트 정보 확인란 --%>
             <tr style="width: 600px; background-color: palegreen">
                 <th colspan="3">텐트 A동</th>
             </tr>
@@ -143,6 +146,8 @@
                 <th style="width: 200px">소개</th>
                 <td colspan="2">다른 동과 강을 기준으로 나뉘어 프라이빗한 캠핑을 할 수 있는 사이트</td>
             </tr>
+
+            <%-- 예약 페이지로 넘어가는 버튼 --%>
             <tr style="width: 600px">
                 <td style="width: 200px">
                     <form action="/reserve/enter_info" method="get">
@@ -169,6 +174,8 @@
     <section>
         <table>
             <tr>
+
+                <%-- 이미지 슬라이드 --%>
                 <td rowspan="5">
                     <div class="slideshow-container">
 
@@ -184,11 +191,14 @@
                             <img src="/resources/assets/img/B동2.jpeg" style="width: 620px; height: 510px;">
                         </div>
 
+                        <%-- 이미지 슬라이드 전환 버튼 --%>
                         <a class="prev" onclick="plusSlide2(-1)">❮</a>
                         <a class="next" onclick="plusSlide2(1)">❯</a>
                     </div>
                 </td>
             </tr>
+
+            <%-- 사이트 정보 확인란 --%>
             <tr style="width: 600px; background-color: palegreen">
                 <th colspan="4">텐트 B동</th>
             </tr>
@@ -200,6 +210,8 @@
                 <th style="width: 200px">소개</th>
                 <td colspan="3">다른 동과 강을 기준으로 나뉘어 프라이빗한 캠핑을 할 수 있는 사이트</td>
             </tr>
+
+             <%-- 예약 페이지 버튼 --%>
             <tr style="width: 600px">
                 <td style="width: 150px">
                     <form action="/reserve/enter_info" method="get">
@@ -232,6 +244,8 @@
     <section>
         <table>
             <tr>
+
+                <%-- 이미지 슬라이드 --%>
                 <td rowspan="5">
                     <div class="slideshow-container">
 
@@ -247,11 +261,14 @@
                             <img src="/resources/assets/img/C동2.jpeg" style="width: 620px; height: 510px;">
                         </div>
 
+                        <%-- 이미지 슬라이드 전환 버튼 --%>
                         <a class="prev" onclick="plusSlide3(-1)">❮</a>
                         <a class="next" onclick="plusSlide3(1)">❯</a>
                     </div>
                 </td>
             </tr>
+
+            <%-- 사이트 정보 확인란 --%>
             <tr style="width: 600px; background-color: palegreen">
                 <th colspan="5">텐트 C동</th>
             </tr>
@@ -263,6 +280,8 @@
                 <th style="width: 200px" colspan="2">소개</th>
                 <td colspan="3">다른 동과 강을 기준으로 나뉘어 프라이빗한 캠핑을 할 수 있는 사이트</td>
             </tr>
+
+            <%-- 예약 페이지 버튼 --%>
             <tr style="width: 600px">
                 <td style="width: 120px">
                     <form action="/reserve/enter_info" method="get">
@@ -304,7 +323,7 @@
     <section class="about">
         <div class="container">
             <div class="section-title">
-                <h2>글램핑동</h2>
+                <h2 class="font-h2">글램핑동</h2>
             </div>
         </div>
     </section>
@@ -312,6 +331,8 @@
     <section>
         <table>
             <tr>
+
+                <%-- 이미지 슬라이드 --%>
                 <td rowspan="5">
                     <div class="slideshow-container">
 
@@ -323,11 +344,14 @@
                             <img src="/resources/assets/img/끌램핑.png" style="width: 620px; height: 510px;">
                         </div>
 
+                        <%-- 이미지 슬라이드 전환 버튼 --%>
                         <a class="prev" onclick="plusSlide4(-1)">❮</a>
                         <a class="next" onclick="plusSlide4(1)">❯</a>
                     </div>
                 </td>
             </tr>
+
+            <%-- 사이트 정보 확인란 --%>
             <tr style="width: 600px; background-color: palegreen">
                 <th colspan="2">글램핑 D동</th>
             </tr>
@@ -339,6 +363,8 @@
                 <th style="width: 200px">소개</th>
                 <td style="width: 400px">다른 동과 강을 기준으로 나뉘어 프라이빗한 캠핑을 할 수 있는 사이트</td>
             </tr>
+
+            <%-- 예약 페이지 버튼 --%>
             <tr style="width: 600px">
                 <td style="width: 600px" colspan="2">
                     <form action="/reserve/enter_info" method="get">
@@ -353,6 +379,8 @@
     <section>
         <table>
             <tr>
+
+                <%-- 이미지 슬라이드 --%>
                 <td rowspan="5">
                     <div class="slideshow-container">
 
@@ -372,11 +400,14 @@
                             <img src="/resources/assets/img/그을램핑1.png" style="width: 620px; height: 510px;">
                         </div>
 
+                        <%-- 이미지 슬라이드 전환 버튼 --%>
                         <a class="prev" onclick="plusSlide5(-1)">❮</a>
                         <a class="next" onclick="plusSlide5(1)">❯</a>
                     </div>
                 </td>
             </tr>
+
+            <%-- 사이트 정보 확인란 --%>
             <tr style="width: 600px; background-color: palegreen">
                 <th colspan="2">텐트 E동</th>
             </tr>
@@ -388,6 +419,8 @@
                 <th style="width: 200px">소개</th>
                 <td>다른 동과 강을 기준으로 나뉘어 프라이빗한 캠핑을 할 수 있는 사이트</td>
             </tr>
+
+            <%-- 예약 페이지 버튼 --%>
             <tr style="width: 600px">
                 <td style="width: 300px">
                     <form action="/reserve/enter_info" method="get">
@@ -411,7 +444,7 @@
     <section class="about">
         <div class="container">
             <div class="section-title">
-                <h2>카라반동</h2>
+                <h2 class="font-h2">카라반동</h2>
             </div>
         </div>
     </section>
@@ -419,6 +452,8 @@
     <section>
         <table>
             <tr>
+
+                <%-- 이미지 슬라이드 --%>
                 <td rowspan="5">
                     <div class="slideshow-container">
 
@@ -430,11 +465,14 @@
                             <img src="/resources/assets/img/카라반2.jpeg" style="width: 620px; height: 510px;">
                         </div>
 
+                        <%-- 이미지 슬라이드 전환 버튼 --%>
                         <a class="prev" onclick="plusSlide6(-1)">❮</a>
                         <a class="next" onclick="plusSlide6(1)">❯</a>
                     </div>
                 </td>
             </tr>
+
+            <%-- 사이트 정보 확인란 --%>
             <tr style="width: 600px; background-color: palegreen">
                 <th colspan="2">카라반 F동</th>
             </tr>
@@ -446,6 +484,8 @@
                 <th style="width: 200px">소개</th>
                 <td>다른 동과 강을 기준으로 나뉘어 프라이빗한 캠핑을 할 수 있는 사이트</td>
             </tr>
+
+            <%-- 예약 페이지 버튼 --%>
             <tr style="width: 600px">
                 <td style="width: 300px">
                     <form action="/reserve/enter_info" method="get">
@@ -467,6 +507,8 @@
 
 
 <script>
+    // 이미지 슬라이드 조작부 ------------------------------------------------------------------
+
     <%-- 1 --%>
     var slideIndex1 = 1;
     showSlide1(slideIndex1);
@@ -630,25 +672,26 @@
         slides[slideIndex6 - 1].style.display = "block";
     }
 
+    // 페이지 전환 섹션 컨트롤러 -------------------------------------------------------------------
 
     function changePage(page) {
         var page1Content = document.getElementById("slideshow-container-1");
         var page2Content = document.getElementById("slideshow-container-2");
         var page3Content = document.getElementById("slideshow-container-3");
 
-        if (page === 'page1') {
+        if (page === 'page1') { // 캠핑동만 보이기
             page1Content.style.display = "block";
             page2Content.style.display = "none";
             page3Content.style.display = "none";
-        } else if (page === 'page2') {
+        } else if (page === 'page2') { // 글램핑동만 보이기
             page1Content.style.display = "none";
             page2Content.style.display = "block";
             page3Content.style.display = "none";
-        } else if (page === 'page3') {
+        } else if (page === 'page3') { // 카라반 동만 보이기
             page1Content.style.display = "none";
             page2Content.style.display = "none";
             page3Content.style.display = "block";
-        } else if (page === 'pageAll') {
+        } else if (page === 'pageAll') { // 전체 보기
             page1Content.style.display = "block";
             page2Content.style.display = "block";
             page3Content.style.display = "block";

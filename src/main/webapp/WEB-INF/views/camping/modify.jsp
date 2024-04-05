@@ -95,6 +95,10 @@
 	
     <div class="container-2">
 		<form role="form" action="/camping/modify" method="post">
+		
+		<input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+		<input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
+		
 		    <div class="form-group">
 		        <label>게시물 번호</label>
 		        <input class="form-control" name='board_no' value='<c:out value="${camping.board_no}"/>' readonly="readonly">
@@ -128,7 +132,37 @@
 		</form>
 	</div>
 </section>
-
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		
+		var formObj = $("form");
+		
+		$('button').on("click", function(e) {
+			
+			e.preventDefalt();
+			
+			var operation = $(this).data("oper");
+			
+			console.log(operation);
+			
+			if(operation === 'remove') {
+				formObj.attr("action","/camping/remove");
+			}else if(operation === 'list') {
+				
+				formObj.attr("action", "/camping/list").attr("method", "get");
+				var pageNumTag = $("input[name='pageNum']").clone();
+				var pageNumTag = $("input[name='pageNum']").clone();
+				
+				formObj.empty();
+				formObj.append(pageNumTag);
+				formObj.append(amountTag);
+			}
+			formObj.submit();
+		});
+	});
+	</script>
+	
 <script>
     // 수정 버튼 클릭 시 모달 표시 및 폼 채우기
     const editButton = document.getElementById("editButton");
